@@ -1,65 +1,55 @@
-import Head from 'next/head'
+import * as comp from "../components/components.js"
+import multiClass from '../utilities/multiClass.js'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+    <div>
+     <comp.Background />
+      <comp.Header>
+        <comp.Title text="Best Phriends" />
+      </comp.Header>
+      <br />
+      <comp.SubTitle text="The game where you find which of your friends are phonies!" />
+      <MainMenuForm />
     </div>
   )
+}
+
+ 
+
+class MainMenuForm extends React.Component {
+  render() {
+    return (
+      <comp.MenuBox color="#344DA8">
+        <CreateGameButton/>
+        <JoinGameButton />
+      </comp.MenuBox>
+    )
+  }
+}
+
+
+
+class CreateGameButton extends React.Component {
+  render() {
+    return (
+      <div className={multiClass([styles.centered, styles.paddedTopBottom])}>
+      <h2 className={multiClass([styles.whiteTextBordered, styles.centered, styles.noMarginTopBottom])}>Create Game</h2>
+      <Link href="/createGame"><a><comp.PrimaryButton id="CreateGameButton" text="CREATE"> </comp.PrimaryButton></a></Link>
+      </div>
+    )
+  }
+}
+
+class JoinGameButton extends React.Component {
+  render() {
+    return (
+      <div className={multiClass([styles.centered, styles.paddedTopBottom])}>
+      <h2 className={multiClass([styles.whiteTextBordered, styles.centered, styles.noMarginTopBottom])}>Join Game</h2>
+      <Link href="/joinGame"><a><comp.PrimaryButton  id="JoinGameButton" text="JOIN"> </comp.PrimaryButton></a></Link>
+      </div>
+    )
+  }
 }

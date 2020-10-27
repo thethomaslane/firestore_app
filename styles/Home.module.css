@@ -1,3 +1,162 @@
+.background {
+  background-image: url("/public/paper_background.jpeg");
+  min-height: 120vh;
+  min-width: 120vw;
+  position: fixed;
+  z-index: -100;
+  overflow: hidden;
+}
+
+.header {
+  background-color: #344DA8;
+  height: 2em;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+.whiteTextBordered {
+  font-family: Bubblegum Sans;
+  font-style: normal;
+  font-weight: normal;
+  
+  color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: .08rem;
+  -webkit-text-stroke-color: black;
+
+}
+
+.answerBox {
+  text-align: left;
+  padding: 2px;
+  margin-left: 1em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  line-height: 1.3rem;
+}
+.answerBox:hover {
+  border-radius: 10px;
+  border: 2px solid rgba(247, 61, 61, 0.5);
+  background-color: rgba(256,256,256,0.25); 
+  color: black;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  transform: translateY(-2px);
+  transition-duration: 0.4s;
+}
+
+.miniWhiteTextBordered {
+  font-family: Bubblegum Sans;
+  font-style: normal;
+  font-weight: normal;
+  
+  color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: .05rem;
+  -webkit-text-stroke-color: black;
+}
+
+.userBox {
+  border: 3px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0em;
+
+}
+
+.listHolder {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.textRight {
+  float: right;
+  margin-right: 0.5rem;
+}
+
+.textLeft {
+  float: left;
+  margin-left: 0.5rem;
+}
+
+.bottom {
+  margin-top: 50em;
+}
+
+.paddedTopBottom {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.paddedLeftRight {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+.noMarginTopBottom {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.inputSize {
+  width: 99%;
+}
+
+.blackText {
+  font-family: Bubblegum Sans;
+  font-style: normal;
+  font-weight: normal;
+  
+  color: black;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+
+.menuBox {
+  margin-top: 5em;
+  border: 5px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  min-height: 18em;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  
+  max-width: 500px;
+}
+
+.primaryButton {
+  height: 2em;
+  width: 10em;
+  border: 2px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin-bottom: 0px;
+  padding: 0.1rem;
+}
+.primaryButton:hover {
+  background-color: #FFFFFF; 
+  color: black;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  transform: translateY(-2px);
+}
+.primaryButton:active {
+  background-color: #bfbfbf;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.subTitleComp {
+  width: 10rem;
+  
+}
+
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
