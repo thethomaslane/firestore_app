@@ -4,20 +4,34 @@ import * as comp from "../components/components.js"
 import Link from 'next/link'
 
 export default function Home(props) {
+  let players = props.Players.sort(function(a, b) {
+    return parseFloat(b.Score) - parseFloat(a.Score);
+});
+  let winner = players[0]
   return (
     <div>
    <comp.Background />
     <comp.Header>
-      <comp.LeftTitle text={props.username} />
-      <comp.RightTitle text={"PIN: "+ props.pin.substring(0,4) + " " + props.pin.substring(4,8)} />
+      <comp.LeftTitle text={props.CurrentPlayer.Name} />
+      <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Winner"/>
-    <WinnerBox username="Username" score="500" color="#BB6BD9" />
+    <WinnerList players={players} />
     <HomeButton />
     </div>
   )
 }
  
+function WinnerList(props) {
+  let highScore = props.players[0].Score;
+  const listItems = props.players.map(function(player, index) {
+      if (player.Score == highScore) {
+      return (<WinnerBox key={player.Name} username={player.Name} score={player.Score} color="#BB6BD9" />)
+    }
+    }
+    );
+  return listItems;
+  }
 
 class WinnerBox extends React.Component {
   render() {
@@ -51,7 +65,7 @@ class HomeButton extends React.Component {
   render() {
     return (
       <div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
-        <Link href="/"><a><comp.PrimaryButton id="HomeButton" text="Play Again" /></a></Link>
+        <a href="/"><comp.PrimaryButton id="HomeButton" text="Play Again" /></a>
       </div>
     )
   }

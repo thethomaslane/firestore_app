@@ -8,7 +8,7 @@ export default function WaitForPlayers(props) {
     <div>
    <comp.Background />
     <comp.Header>
-      <comp.LeftTitle text={props.username} />
+      <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Waiting For Players"/>
@@ -53,7 +53,6 @@ class UsernameBox extends React.Component {
 class UsernameBoxList extends React.Component {
   
   render() {
-    console.log("list of players", this.props.players);
     const listItems = this.props.players.map((player) =>
       <UsernameBox key={player.Name} username={player.Name} color="#BB6BD9"/>
     );
@@ -71,7 +70,7 @@ class GameStarterButton extends React.Component {
   }
 
   startGame() {
-    this.props.connection.send(JSON.stringify({Code: "Start Game", Pin: this.props.Pin}));
+    this.props.connection.send(JSON.stringify({Code: "Start Game", Pin: this.props.pin}));
   }
   render() {
     if (this.props.display) {

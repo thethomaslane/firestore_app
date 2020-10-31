@@ -13,35 +13,18 @@ export default function Vote(props) {
     <div>
    <comp.Background overlay="rgba(256,256,256,.5)" />
     <comp.Header>
-      <comp.LeftTitle text={props.username} />
-      <comp.RightTitle text={"PIN: "+ props.pin.substring(0,4) + " " + props.pin.substring(4,8)} />
+      <comp.LeftTitle text={props.CurrentPlayer.Name} />
+      <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Vote"/>
-    <VoteListHolder userList={userList} />
-    <VoteSubmitterButton />
+    <comp.SubTitle text={props.Game.Questions[props.Game.QuestionsAsked].Text}/>
+    <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked}/>
     </div>
   )
 }
 
-let userList = [];
-for (var i = 9; i >= 0; i--) {
-userList.push(
-{name: "Username" + i.toString(),
-color: "#BB6BD9",
-answer: "This is my answer, it can go to two diff erent lines." ,
-selected: false}
-);
-} 
 
-class VoteSubmitterButton extends React.Component {
-  render() {
-    return (
-      <div className={multiClass([styles.centered, styles.paddedTopBottom])} >
-        <Link href="/scoreboard"><a><comp.PrimaryButton id="VoteSubmitterButton" text="Submit Vote" /></a></Link>
-      </div>
-    )
-  }
-}
+
+
 
 
 class VoteListHolder extends React.Component {
@@ -50,14 +33,35 @@ class VoteListHolder extends React.Component {
     super(props);
     this.onSelect = this.onSelect.bind(this)
     this.state = {selected: ""}
+    this.submitVote = this.submitVote.bind(this)
+    this.questionNumber = this.props.questionNumber;
   }
 
   onSelect(username) {
     this.setState({selected: username});
   }
+
+  componentWillUnmount() {
+    this.submitVote();
+  }
+
+  submitVote() {
+    console.log("submitting vote", this.state.selected);
+    console.log("questionNumber", this.questionNumber);
+    this.props.connection.send(JSON.stringify({Code: "Submit Vote", Pin: this.props.pin, Vote: this.state.selected,
+      PlayerName: this.props.playerName, QuestionNumber: this.questionNumber}));
+
+  }
   render() {
-    const users = this.props.userList.map((user, index) =>
-    <AnswerBox selected={this.state.selected} username={user.name} key={index} color={user.color} answer={user.answer} clickHandler={this.onSelect}/>
+    let currentPlayer = this.props.playerName;
+    let selected = this.state.selected;
+    let onSelect = this.onSelect;
+    const users = this.props.userList.map(function (user, index) {
+    if (user.Name == currentPlayer) {return null}
+    else {
+    return <AnswerBox selected={selected} username={user.Name} key={index} color={"#BB6BD9"} answer={user.Answer} clickHandler={onSelect}/>
+  }
+}
   );
     return (
       <div className={multiClass([styles.centered])}>
@@ -110,3 +114,4 @@ class AnswerBox extends React.Component {
     )
   }
 }
+

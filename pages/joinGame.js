@@ -41,7 +41,7 @@ class GameJoinerButton extends React.Component {
   }
   setUsernameAndPin() {
     let username = document.getElementById("Username").value;
-    let pin = document.getElementById("PIN").value.toUpperCase();
+    let pin = document.getElementById("PIN").value.toUpperCase().split(" ").join("");
     console.log("joining game");
     this.props.connection.send(JSON.stringify({Code: "Open"}));
     this.props.connection.send(JSON.stringify({Code: "Create Player", Player: {Pin: pin, Name: username, Host: false}}));

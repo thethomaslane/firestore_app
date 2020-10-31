@@ -3,13 +3,21 @@ import React from 'react';
 import App from 'next/app';
 import { withRouter } from 'next/router'
 import ReactDOM from 'react-dom';
+import scoreboard from "./scoreboard.js"
+import createGame from "./createGame.js"
+import joinGame from "./joinGame.js"
+import question from "./question.js"
+import waiting from "./waiting.js"
+import vote from "./vote.js"
+import winner from "./winner.js"
+
 
 
 class MyApp extends App {
 
 	constructor(props) {
     	super(props);
-    	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "/waiting"};
+    	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting"};
     	this.setUsernameAndPin = this.setUsernameAndPin.bind(this);
         this.resetState = this.resetState.bind(this);
         
@@ -21,9 +29,9 @@ class MyApp extends App {
 	}
 
     resetState() {
-        if (GameState.GameState != this.state.PreviousState) {
-            this.router.push(GameState.GameState);
-        }
+        GamePlayers = GamePlayers.sort(function(a, b) {
+            parseFloat(a.Score) - parseFloat(b.Score);
+        });
         this.setState({Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: GameState.GameState});
     }
 
@@ -31,7 +39,6 @@ class MyApp extends App {
         comp = ReactDOM.findDOMNode(this);
         comp.addEventListener("recieveGame", this.handleRecieveGame);
         comp.addEventListener("recievePlayers", this.handleRecievePlayers);
-        console.log("event listener added");
 
     }
 
@@ -44,7 +51,10 @@ class MyApp extends App {
   }
 
 	render() {
-    	const { Component, pageProps } = this.props;
+    	let { Component, pageProps } = this.props;
+        if (this.state.Game.GameState != "waiting") {
+            Component = ComponentMap[GameState.GameState];
+        }
 
     	return (
     		<Component {...pageProps} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection}></Component>
@@ -55,15 +65,18 @@ class MyApp extends App {
 
 export default MyApp;
 
+
+
 let comp;
-let router = withRouter();
+
+const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner};
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const connection = new W3CWebSocket('ws://127.0.0.1:8080');
+const connection = new W3CWebSocket('ws://10.0.0.102:8080');
 
 
-let GameState = {Pin: "", GameState: "/waiting"};
+let GameState = {Pin: "", GameState: "waiting"};
 let GamePlayers = [];
 let CurrentPlayer = {Host: false};
 
@@ -80,8 +93,10 @@ connection.onmessage =  (e) => {
 
   var data = JSON.parse(e.data);
   if (data.Code == "Open") {console.log("Open Connection");}
-  if (data.Code == "Players") {GamePlayers = data.Players; console.log("Players", data.Players);comp.dispatchEvent(new Event('recievePlayers'));}
-  if (data.Code == "Game") {GameState = data.Game; console.log("Game Recieved", GameState); comp.dispatchEvent(new Event('recieveGame'));}
+  if (data.Code == "Players") {GamePlayers = data.Players;comp.dispatchEvent(new Event('recievePlayers'));}
+  if (data.Code == "Game") {GameState = data.Game; console.log("State of Game",GameState.GameState);comp.dispatchEvent(new Event('recieveGame'));}
+  if (data.Code == "Submit Answer") {console.log("submitAnswer dispatched"), document.dispatchEvent(new Event("submitAnswer"));}
+  if (data.Code == "Submit Vote") {console.log("submitVote dispatched"), document.dispatchEvent(new Event("submitVote"));}
   if (data.Code == "Current Player") {CurrentPlayer = data.Player; console.log("CurrentPlayer", CurrentPlayer); comp.dispatchEvent(new Event('recievePlayers'));}
   if (data.Code == "Game Found") {Game = data.Game; Players = data.Players; joinGame();}
   if (data.Code == "Display Message") {alert(data.Message);}

@@ -13,23 +13,13 @@ export default function Scoreboard(props) {
     <div>
    <comp.Background />
     <comp.Header>
-      <comp.LeftTitle text={props.username} />
-      <comp.RightTitle text={"PIN: "+ props.pin.substring(0,4) + " " + props.pin.substring(4,8)} />
+      <comp.LeftTitle text={props.CurrentPlayer.Name} />
+      <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Score"/>
     <comp.ListHolder next="/winner">
-    	<UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
-      <UserScoreBox place="1st." score="500" username="Username" color="#BB6BD9"/>
+    	<ScoreBoxList players={props.Players} />
     </comp.ListHolder>
-    <VotePassButton />
   </div>
   )
 }
@@ -44,12 +34,10 @@ class UserScoreBox extends React.Component {
         .user {
           background-color: ${this.props.color};
           align-items: center;
-          display: inline;
           height: 3.5rem;
           width: 90%;
         }
         .left {
-          display: inline;
           float: left;
           margin-top: -.5em;
           margin-bottom: 0;
@@ -73,11 +61,22 @@ class UserScoreBox extends React.Component {
 
 
 
-class VotePassButton extends React.Component {
+
+class ScoreBoxList extends React.Component {
+  
   render() {
+    let places = ["1st.", "2nd.", "3rd.", "4th."];
+    let players = this.props.players.sort(function(a, b) {
+    return parseFloat(b.Score) - parseFloat(a.Score);
+});
+    console.log("list of players", this.props.players);
+    const listItems = this.props.players.map((player, index) =>
+      <UserScoreBox key={player.Name} username={player.Name} color="#BB6BD9" score={player.Score} place={places[index]}/>
+
+    );
     return (
-      <div className={multiClass([styles.centered, styles.paddedTopBottom])} >
-        <Link href="/winner"><a><comp.PrimaryButton id="VoteSubmitterButton" text="Submit Vote" /></a></Link>
+      <div>
+      {listItems}
       </div>
     )
   }

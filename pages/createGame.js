@@ -29,7 +29,6 @@ class GameCreatorButton extends React.Component {
   setUsernameAndPin() {
     let username = document.getElementById("Username").value;
     let pin = generatePin();
-    console.log(pin);
     this.props.connection.send(JSON.stringify({Code: "Open"}));
     console.log("create game");
     this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin}}));
