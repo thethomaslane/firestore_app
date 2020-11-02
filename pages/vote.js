@@ -22,7 +22,7 @@ export default function Vote(props) {
   )
 }
 
-
+export async function getServerSideProps() {}
 
 
 

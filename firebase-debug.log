@@ -1,0 +1,43 @@
+[debug] [2020-10-31T03:04:23.813Z] ----------------------------------------------------------------------
+[debug] [2020-10-31T03:04:23.815Z] Command:       /usr/local/Cellar/node/14.9.0/bin/node /usr/local/bin/firebase init hosting
+[debug] [2020-10-31T03:04:23.815Z] CLI Version:   8.9.2
+[debug] [2020-10-31T03:04:23.816Z] Platform:      darwin
+[debug] [2020-10-31T03:04:23.816Z] Node Version:  v14.9.0
+[debug] [2020-10-31T03:04:23.817Z] Time:          Fri Oct 30 2020 20:04:23 GMT-0700 (Pacific Daylight Time)
+[debug] [2020-10-31T03:04:23.818Z] ----------------------------------------------------------------------
+[debug] [2020-10-31T03:04:23.818Z] 
+[debug] [2020-10-31T03:04:23.825Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-10-31T03:04:23.825Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/tlane1/BestPhriends/src
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  .firebaserc already has a default project, using test-cd477. 
+[debug] [2020-10-31T03:04:23.832Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/test-cd477  
+ 
+[debug] [2020-10-31T03:04:24.163Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 31 Oct 2020 03:04:24 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

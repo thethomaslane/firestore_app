@@ -1,0 +1,7 @@
+env: flex
+runtime: nodejs12
+service: default
+
+handlers:
+  - url: /.*
+    script: auto

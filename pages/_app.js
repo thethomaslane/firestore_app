@@ -73,7 +73,7 @@ const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinG
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const connection = new W3CWebSocket('ws://10.0.0.102:8080');
+const connection = new W3CWebSocket('ws://10.0.0.104:3000');
 
 
 let GameState = {Pin: "", GameState: "waiting"};
