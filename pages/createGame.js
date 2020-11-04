@@ -10,7 +10,7 @@ export default function CreateGame(props) {
    <div> 
    <comp.Background />
     <comp.Header>
-      <comp.Title text="Best Phriends" />
+      <comp.Title text="Phrenemies!" />
     </comp.Header>
     <br />
     <comp.SubTitle text="The game where you find which of your friends are phonies!" />
@@ -28,16 +28,22 @@ class GameCreatorButton extends React.Component {
   }
   setUsernameAndPin() {
     let username = document.getElementById("Username").value;
-    let pin = generatePin();
-    this.props.connection.send(JSON.stringify({Code: "Open"}));
-    console.log("create game");
-    this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin}}));
-    this.props.connection.send(JSON.stringify({Code: "Create Player", Player: {Pin: pin, Name: username, Host: true}}));
+    if (username.match(/^[a-zA-Z]+$/) && username.length >=1) {
+      let pin = generatePin();
+      setCookie("username", username);
+      setCookie("pin", pin);
+      setCookie("start", "false");
+      this.props.connection.send(JSON.stringify({Code: "Open"}));
+      console.log("create game");
+      this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin}}));
+      setTimeout(() => {this.props.connection.send(JSON.stringify({Code: "Create Player", Player: {Pin: pin, Name: username, Host: true}}));}, 1000);
+    }
+    else {alert("Username can only contain letters and be between 1 and 12 characters in length.")}
   }
   render() {
     return (
       <div className={multiClass([styles.paddedTopBottom, styles.centered])} >
-        <comp.PrimaryButton id="GameCreatorButton" text="Create Game" clickFunction={this.setUsernameAndPin} next="/waiting" />
+        <comp.PrimaryButton id="GameCreatorButton" text="Create Game" clickFunction={this.setUsernameAndPin} next="/play" />
       </div>
     )
   }
@@ -48,10 +54,20 @@ class CreateGameForm extends React.Component {
     return (
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text="Create Game" />
-        <comp.Input text="Username" />
+        <comp.Input text="Username" maxLength="12"  />
         <br />
         <GameCreatorButton connection={this.props.connection}/>
       </comp.MenuBox>
     )
   }
+}
+
+function setCookie(name, value) {
+  var d = new Date();
+  d.setTime(d.getTime() + (20 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  let newCookie = name+ "=" + value + ";" + expires + ";";
+  console.log("cookie set to", newCookie);
+  document.cookie = newCookie;
+  console.log("and actually set to", document.cookie);
 }

@@ -1,7 +1,10 @@
 env: flex
-runtime: nodejs12
+runtime: nodejs
 service: default
 
 handlers:
   - url: /.*
     script: auto
+
+env_variables:
+  SocketServer: "ws://my-second-app-dot-test-cd477.uc.r.appspot.com/"

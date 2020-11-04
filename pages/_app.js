@@ -10,6 +10,7 @@ import question from "./question.js"
 import waiting from "./waiting.js"
 import vote from "./vote.js"
 import winner from "./winner.js"
+import phony from "./phony.js"
 
 
 
@@ -17,7 +18,7 @@ class MyApp extends App {
 
 	constructor(props) {
     	super(props);
-    	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting"};
+    	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting", ErrorMessage: null};
     	this.setUsernameAndPin = this.setUsernameAndPin.bind(this);
         this.resetState = this.resetState.bind(this);
         
@@ -32,7 +33,7 @@ class MyApp extends App {
         GamePlayers = GamePlayers.sort(function(a, b) {
             parseFloat(a.Score) - parseFloat(b.Score);
         });
-        this.setState({Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: GameState.GameState});
+        this.setState({Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: GameState.GameState, ErrorMessage: GameState.ErrorMessage});
     }
 
     componentDidMount() {
@@ -52,12 +53,12 @@ class MyApp extends App {
 
 	render() {
     	let { Component, pageProps } = this.props;
-        if (this.state.Game.GameState != "waiting") {
+        if (this.state.Game.GameState != "setup") {
             Component = ComponentMap[GameState.GameState];
         }
 
     	return (
-    		<Component {...pageProps} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection}></Component>
+    		<Component {...pageProps} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection} ErrorMessage={this.state.ErrorMessage}></Component>
     		);
   }
 }
@@ -69,14 +70,15 @@ export default MyApp;
 
 let comp;
 
-const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner};
+const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const connection = new W3CWebSocket('ws://10.0.0.104:3000');
+const socketServer = process.env.SocketServer || 'ws://localhost:8080';
+const connection = new W3CWebSocket(socketServer);
 
 
-let GameState = {Pin: "", GameState: "waiting"};
+let GameState = {Pin: "", GameState: "setup", ErrorMessage: null, newQuestion: {AltTitle: "waiting", Title: "waiting"} };
 let GamePlayers = [];
 let CurrentPlayer = {Host: false};
 
@@ -100,6 +102,8 @@ connection.onmessage =  (e) => {
   if (data.Code == "Current Player") {CurrentPlayer = data.Player; console.log("CurrentPlayer", CurrentPlayer); comp.dispatchEvent(new Event('recievePlayers'));}
   if (data.Code == "Game Found") {Game = data.Game; Players = data.Players; joinGame();}
   if (data.Code == "Display Message") {alert(data.Message);}
+  if (data.Code == "Join Failed") {GameState.ErrorMessage = data.Message; console.log(data.Message); comp.dispatchEvent(new Event('recieveGame'));}
+  if (data.Code == "New Question") {if (data.newQuestion) {GameState.newQuestion = data.newQuestion; comp.dispatchEvent(new Event('recieveGame'));}}
 }
 
 function sendMessage(code, data) {

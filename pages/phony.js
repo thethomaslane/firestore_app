@@ -3,11 +3,10 @@ import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 import Link from 'next/link'
 
-export default function Home(props) {
+export default function Phony(props) {
   let players = props.Players.sort(function(a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
 });
-  let winner = players[0]
   return (
     <div>
    <comp.Background />
@@ -15,27 +14,26 @@ export default function Home(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Winner"/>
-    <WinnerList players={players} />
-    <HomeButton />
+    <comp.SubTitle text="Phony!"/>
+    <PhonyList players={players} phony={props.Game.Phony} question={props.Game.Questions[props.Game.QuestionsAsked].AltText}/>
     </div>
   )
 }
 
 export async function getServerSideProps() {}
  
-function WinnerList(props) {
+function PhonyList(props) {
   let highScore = props.players[0].Score;
   const listItems = props.players.map(function(player, index) {
-      if (player.Score == highScore) {
-      return (<WinnerBox key={player.Name} username={player.Name} score={player.Score} color={player.Color} />)
+      if (player.Name == props.phony) {
+      return (<PhonyBox key={player.Name} username={player.Name} question={props.question} answer={player.Answer} color={player.Color} />)
     }
     }
     );
   return listItems;
   }
 
-class WinnerBox extends React.Component {
+class PhonyBox extends React.Component {
   render() {
     return (
       <div className={multiClass([styles.winnerBox, styles.centered])}>
@@ -56,7 +54,8 @@ class WinnerBox extends React.Component {
         }
       `}</style>
       <h1 className={multiClass(["username"])}>{this.props.username}</h1>
-      <h2 className={multiClass([styles.blackText, styles.noMarginTopBottom])}>Score: {this.props.score}</h2>
+      <h2 className={multiClass([styles.blackText, styles.noMarginTopBottom])}>{this.props.question}</h2>
+      <p className={multiClass([styles.noMarginTopBottom])}>{this.props.answer}</p>
       </div>
 
     )

@@ -8,7 +8,7 @@ export default function Home() {
     <div>
      <comp.Background />
       <comp.Header>
-        <comp.Title text="Best Phriends" />
+        <comp.Title text="Phrenemies!" />
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />

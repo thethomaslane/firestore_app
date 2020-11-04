@@ -11,7 +11,8 @@ export default function WaitForPlayers(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Waiting For Players"/>
+    <comp.SubTitle text="Waiting For Players..."/>
+    <comp.SubTitle text={props.Players.length + "/20"} />
     <comp.ListHolder>
       <UsernameBoxList players={props.Players} />
     </comp.ListHolder>
@@ -51,15 +52,19 @@ class UsernameBox extends React.Component {
 
 
 class UsernameBoxList extends React.Component {
+
+  componentDidMount() {
+    setCookie("start", "true");
+  }
   
   render() {
     const listItems = this.props.players.map((player) =>
-      <UsernameBox key={player.Name} username={player.Name} color="#BB6BD9"/>
+      <UsernameBox key={player.Name} username={player.Name} color={player.Color}/>
     );
     return (
-      <div>
+      <React.Fragment>
       {listItems}
-      </div>
+      </React.Fragment>
     )
   }
 }
@@ -82,4 +87,14 @@ class GameStarterButton extends React.Component {
     } else {return (null)}
 
   }
+}
+
+function setCookie(name, value) {
+  var d = new Date();
+  d.setTime(d.getTime() + (20 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  let newCookie = name+ "=" + value + ";" + expires + ";";
+  console.log("cookie set to", newCookie);
+  document.cookie = newCookie;
+  console.log("and actually set to", document.cookie);
 }

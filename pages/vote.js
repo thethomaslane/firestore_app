@@ -18,6 +18,7 @@ export default function Vote(props) {
     </comp.Header>
     <comp.SubTitle text={props.Game.Questions[props.Game.QuestionsAsked].Text}/>
     <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked}/>
+    <comp.Timer TotalTime="20" />
     </div>
   )
 }
@@ -59,7 +60,7 @@ class VoteListHolder extends React.Component {
     const users = this.props.userList.map(function (user, index) {
     if (user.Name == currentPlayer) {return null}
     else {
-    return <AnswerBox selected={selected} username={user.Name} key={index} color={"#BB6BD9"} answer={user.Answer} clickHandler={onSelect}/>
+    return <AnswerBox selected={selected} username={user.Name} key={index} color={user.Color} answer={user.Answer} clickHandler={onSelect}/>
   }
 }
   );

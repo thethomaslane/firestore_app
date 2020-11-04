@@ -71,7 +71,7 @@ class ScoreBoxList extends React.Component {
 });
     console.log("list of players", this.props.players);
     const listItems = this.props.players.map((player, index) =>
-      <UserScoreBox key={player.Name} username={player.Name} color="#BB6BD9" score={player.Score} place={places[index]}/>
+      <UserScoreBox key={player.Name} username={player.Name} color={player.Color} score={player.Score} place={places[index]}/>
 
     );
     return (

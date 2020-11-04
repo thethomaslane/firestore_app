@@ -5,7 +5,7 @@ import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 import Router from 'next/router'
 
-export default function JoinGame(props) {
+export default function newQuestion(props) {
   return (
    <div>
      <comp.Background />
@@ -45,6 +45,7 @@ class QuestionSubmitterButton extends React.Component {
     let NormalText = document.getElementById("Normal Text").value;
     let QuestionText = document.getElementById("Imposter Text").value;
     this.props.connection.send(JSON.stringify({Code: "New Question", Title: NormalText, AltTitle: QuestionText}));
+    console.log("sent question");
     Router.reload(window.location.pathname);
   }
 

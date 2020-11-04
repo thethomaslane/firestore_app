@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 export default function Question(props) {
   let questionText;
   let role;
-  if (props.CurrentPlayer.Name == props.Game.Imposter) {
+  if (props.CurrentPlayer.Name == props.Game.Phony) {
     questionText = props.Game.Questions[props.Game.QuestionsAsked].AltText;
     role = "Phony!"
   } else {
@@ -27,6 +27,7 @@ export default function Question(props) {
     </comp.Header>
     <comp.SubTitle text="Question"/>
     <QuestionForm role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host}/>
+    <comp.Timer TotalTime="20" />
     </div>
   )
 }
@@ -41,7 +42,6 @@ class QuestionForm extends React.Component {
   }
 
   componentDidMount() {
-    this.props.connection.send(JSON.stringify({Code: "Start Question", Pin: this.props.pin, Host: this.props.host}));
   }
 
   componentWillUnmount() {
@@ -60,7 +60,7 @@ class QuestionForm extends React.Component {
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text={this.props.role}/>
         <QuestionText question={this.props.question}/>
-        <comp.Input text="Answer" />
+        <comp.Input text="Answer" maxLength="40" />
       </comp.MenuBox>
      )
    }

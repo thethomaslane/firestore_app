@@ -83,6 +83,7 @@ export function PrimaryButton(props) {
       if (props.next){
         router.push(props.next);
       }
+      
 
     }
     return (
@@ -94,11 +95,12 @@ export function PrimaryButton(props) {
 
 export class Input extends React.Component {
   render() {
+    console.log("maxlength", this.props.maxLength);
     return (
       <div className={multiClass([styles.paddedTopBottom])}>
         <p className={multiClass([styles.miniWhiteTextBordered, styles.noMarginTopBottom])}>{this.props.text + ":"}</p>
         <div className={multiClass([styles.centered])}>
-          <input id={this.props.text} className={multiClass([styles.inputSize])} placeholder={"Enter " + this.props.text} type="text" />
+          <input id={this.props.text} className={multiClass([styles.inputSize])} required placeholder={"Enter " + this.props.text} type="text" maxLength={this.props.maxLength} />
         </div>
       </div>
     )
@@ -150,3 +152,52 @@ export class ListHolder extends React.Component {
 }
 
 
+export class Timer extends React.Component {
+    constructor(props) {
+    super(props);
+    this.state = {TimeLeft: parseInt(props.TotalTime)};
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    let newTime;
+    let oldTime = this.state.TimeLeft;
+    if (oldTime > 0) {
+      newTime = oldTime - 1;
+    } else {
+      newTime = 0;
+    }
+    this.setState({
+      TimeLeft: newTime
+    });
+  }
+
+  render() {
+    return (
+      <div className={multiClass(["timer", styles.centered])}>
+      <p >Time Left: {this.state.TimeLeft}</p>
+      <style jsx>{`
+        .timer {
+          position: absolute;
+          top: 0.5rem;
+          position: absolute;
+          left: 1rem;
+          text-align: center;
+          font-size: 2rem;
+        }
+      `}</style>
+      </div>
+
+    )
+  }
+}
