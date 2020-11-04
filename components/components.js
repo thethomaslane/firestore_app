@@ -95,12 +95,11 @@ export function PrimaryButton(props) {
 
 export class Input extends React.Component {
   render() {
-    console.log("maxlength", this.props.maxLength);
     return (
       <div className={multiClass([styles.paddedTopBottom])}>
         <p className={multiClass([styles.miniWhiteTextBordered, styles.noMarginTopBottom])}>{this.props.text + ":"}</p>
         <div className={multiClass([styles.centered])}>
-          <input id={this.props.text} className={multiClass([styles.inputSize])} required placeholder={"Enter " + this.props.text} type="text" maxLength={this.props.maxLength} />
+          <input id={this.props.text} className={multiClass([styles.inputSize])} autoComplete="off" placeholder={"Enter " + this.props.text} type="text" maxLength={this.props.maxLength} />
         </div>
       </div>
     )

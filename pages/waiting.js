@@ -16,7 +16,7 @@ export default function WaitForPlayers(props) {
     <comp.ListHolder>
       <UsernameBoxList players={props.Players} />
     </comp.ListHolder>
-    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host} pin={props.Game.Pin}/>
+    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions } pin={props.Game.Pin}/>
     </div>
   )
 }
@@ -94,7 +94,5 @@ function setCookie(name, value) {
   d.setTime(d.getTime() + (20 * 60 * 1000));
   let expires = "expires="+d.toUTCString();
   let newCookie = name+ "=" + value + ";" + expires + ";";
-  console.log("cookie set to", newCookie);
   document.cookie = newCookie;
-  console.log("and actually set to", document.cookie);
 }

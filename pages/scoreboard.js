@@ -69,7 +69,6 @@ class ScoreBoxList extends React.Component {
     let players = this.props.players.sort(function(a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
 });
-    console.log("list of players", this.props.players);
     const listItems = this.props.players.map((player, index) =>
       <UserScoreBox key={player.Name} username={player.Name} color={player.Color} score={player.Score} place={places[index]}/>
 

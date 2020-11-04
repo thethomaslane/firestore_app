@@ -47,8 +47,6 @@ class VoteListHolder extends React.Component {
   }
 
   submitVote() {
-    console.log("submitting vote", this.state.selected);
-    console.log("questionNumber", this.questionNumber);
     this.props.connection.send(JSON.stringify({Code: "Submit Vote", Pin: this.props.pin, Vote: this.state.selected,
       PlayerName: this.props.playerName, QuestionNumber: this.questionNumber}));
 

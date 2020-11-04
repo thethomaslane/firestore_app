@@ -47,7 +47,6 @@ class QuestionApproverButton extends React.Component {
 
   approveQuestion() {
     this.props.connection.send(JSON.stringify({Code: "Approve Question", Question: this.props.question}));
-    console.log("sent approval");
     Router.reload(window.location.pathname);
   }
 
@@ -69,7 +68,6 @@ class QuestionRejectorButton extends React.Component {
 
   rejectQuestion() {
     this.props.connection.send(JSON.stringify({Code: "Reject Question", Question: this.props.question}));
-    console.log("sent rejection");
     Router.reload(window.location.pathname);
   }
 

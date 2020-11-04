@@ -19,16 +19,10 @@ class MyApp extends App {
 	constructor(props) {
     	super(props);
     	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting", ErrorMessage: null};
-    	this.setUsernameAndPin = this.setUsernameAndPin.bind(this);
-        this.resetState = this.resetState.bind(this);
+      this.resetState = this.resetState.bind(this);
         
 
 	}
-
-	async setUsernameAndPin(username, pin) {
-		connection.sendMessage("Create Game", this.state);
-	}
-
     resetState() {
         GamePlayers = GamePlayers.sort(function(a, b) {
             parseFloat(a.Score) - parseFloat(b.Score);
@@ -74,7 +68,7 @@ const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinG
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const socketServer = process.env.SocketServer || 'ws://localhost:8080';
+const socketServer = process.env.SocketServer || "ws://localhost:8080";
 const connection = new W3CWebSocket(socketServer);
 
 
@@ -88,25 +82,21 @@ connection.onopen = () => {
 }
 
 connection.onerror = (error) => {
-  console.log(`WebSocket error: ${error}`)
 }
 
 connection.onmessage =  (e) => {
 
   var data = JSON.parse(e.data);
-  if (data.Code == "Open") {console.log("Open Connection");}
+  if (data.Code == "Open") {}
   if (data.Code == "Players") {GamePlayers = data.Players;comp.dispatchEvent(new Event('recievePlayers'));}
-  if (data.Code == "Game") {GameState = data.Game; console.log("State of Game",GameState.GameState);comp.dispatchEvent(new Event('recieveGame'));}
-  if (data.Code == "Submit Answer") {console.log("submitAnswer dispatched"), document.dispatchEvent(new Event("submitAnswer"));}
-  if (data.Code == "Submit Vote") {console.log("submitVote dispatched"), document.dispatchEvent(new Event("submitVote"));}
-  if (data.Code == "Current Player") {CurrentPlayer = data.Player; console.log("CurrentPlayer", CurrentPlayer); comp.dispatchEvent(new Event('recievePlayers'));}
+  if (data.Code == "Game") {GameState = data.Game; comp.dispatchEvent(new Event('recieveGame'));}
+  if (data.Code == "Submit Answer") {document.dispatchEvent(new Event("submitAnswer"));}
+  if (data.Code == "Submit Vote") {document.dispatchEvent(new Event("submitVote"));}
+  if (data.Code == "Current Player") {CurrentPlayer = data.Player; comp.dispatchEvent(new Event('recievePlayers'));}
   if (data.Code == "Game Found") {Game = data.Game; Players = data.Players; joinGame();}
   if (data.Code == "Display Message") {alert(data.Message);}
-  if (data.Code == "Join Failed") {GameState.ErrorMessage = data.Message; console.log(data.Message); comp.dispatchEvent(new Event('recieveGame'));}
+  if (data.Code == "Join Failed") {GameState.ErrorMessage = data.Message; comp.dispatchEvent(new Event('recieveGame'));}
   if (data.Code == "New Question") {if (data.newQuestion) {GameState.newQuestion = data.newQuestion; comp.dispatchEvent(new Event('recieveGame'));}}
 }
 
-function sendMessage(code, data) {
 
-  connection.send(JSON.stringify({Code: code, Game: data}));
-}

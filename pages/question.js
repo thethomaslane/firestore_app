@@ -50,8 +50,6 @@ class QuestionForm extends React.Component {
 
   submitAnswer() {
     let answer = document.getElementById("Answer").value;
-    console.log("submitting answer", answer);
-    console.log("PlayerName", this.props.playerName);
     this.props.connection.send(JSON.stringify({Code: "Submit Answer", Pin: this.props.pin, Answer: answer, PlayerName: this.props.playerName}));
 
   }

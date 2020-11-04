@@ -44,7 +44,6 @@ class GameJoinerButton extends React.Component {
     let username = document.getElementById("Username").value;
     let pin = document.getElementById("PIN").value.toUpperCase().split(" ").join("");
     if (username.match(/^[a-zA-Z]+$/) && pin.match(/^[a-zA-Z]+$/) && username.length >= 1) {
-      console.log("joining game");
       setCookie("username", username);
       setCookie("pin", pin);
       setCookie("start", "false");
@@ -67,7 +66,5 @@ function setCookie(name, value) {
   d.setTime(d.getTime() + (20 * 60 * 1000));
   let expires = "expires="+d.toUTCString();
   let newCookie = name+ "=" + value + ";" + expires + ";";
-  console.log("cookie set to", newCookie);
   document.cookie = newCookie;
-  console.log("and actually set to", document.cookie);
 }

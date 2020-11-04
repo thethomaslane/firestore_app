@@ -34,7 +34,6 @@ class GameCreatorButton extends React.Component {
       setCookie("pin", pin);
       setCookie("start", "false");
       this.props.connection.send(JSON.stringify({Code: "Open"}));
-      console.log("create game");
       this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin}}));
       setTimeout(() => {this.props.connection.send(JSON.stringify({Code: "Create Player", Player: {Pin: pin, Name: username, Host: true}}));}, 1000);
     }
@@ -67,7 +66,5 @@ function setCookie(name, value) {
   d.setTime(d.getTime() + (20 * 60 * 1000));
   let expires = "expires="+d.toUTCString();
   let newCookie = name+ "=" + value + ";" + expires + ";";
-  console.log("cookie set to", newCookie);
   document.cookie = newCookie;
-  console.log("and actually set to", document.cookie);
 }

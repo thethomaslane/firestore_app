@@ -10,7 +10,7 @@ export default function newQuestion(props) {
    <div>
      <comp.Background />
       <comp.Header>
-        <comp.Title text="Best Phriends" />
+        <comp.Title text="Phrenemies!" />
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />
@@ -45,7 +45,6 @@ class QuestionSubmitterButton extends React.Component {
     let NormalText = document.getElementById("Normal Text").value;
     let QuestionText = document.getElementById("Imposter Text").value;
     this.props.connection.send(JSON.stringify({Code: "New Question", Title: NormalText, AltTitle: QuestionText}));
-    console.log("sent question");
     Router.reload(window.location.pathname);
   }
 

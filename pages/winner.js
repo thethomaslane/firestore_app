@@ -2,8 +2,17 @@ import styles from '../styles/Home.module.css'
 import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 import Link from 'next/link'
+import { useEffect } from 'react';
 
 export default function Home(props) {
+
+useEffect(() => {
+  if (props.CurrentPlayer.Host) {
+    setTimeout(() => {props.connection.send(JSON.stringify({Code: "Delete Game", Pin: props.Game.Pin}))}, 2000);
+  }
+  setTimeout(() => {props.connection.send(JSON.stringify({Code: "Close Connection"}))}, 2000);
+  });
+
   let players = props.Players.sort(function(a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
 });

@@ -34,35 +34,27 @@ class HomeButton extends React.Component {
 
 let connection;
 function init() {
-  console.log("cookie");
   checkCookie();
 }
 
 async function checkCookie() {
-  console.log("checkCookie");
-  console.log(1);
   setTimeout(keepGoing, 1000);
   function keepGoing() {
-    console.log(3);
     var username = getCookie("username");
     var pin = getCookie("pin");
     var started = getCookie("start") == "true";
     if (username != "" && pin != "" && started) {
-        console.log("username", username);
         connection.send(JSON.stringify({Code: "Rejoin Game", Pin: pin, Username: username}));
       return true;
     } else {
-      console.log("no Username");
       return false;
     }
   }
 }
 
 function getCookie(cname) {
-  console.log("getCookie");
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
-  console.log("full cookie", document.cookie, "decoded = ", decodedCookie);
   var ca = decodedCookie.split(';');
   for(var i = 0; i <ca.length; i++) {
     var c = ca[i];
