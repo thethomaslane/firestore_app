@@ -18,7 +18,7 @@ export default function Vote(props) {
     </comp.Header>
     <comp.SubTitle text={props.Game.Questions[props.Game.QuestionsAsked].Text}/>
     <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked}/>
-    <comp.Timer TotalTime="20" />
+    <comp.Timer TotalTime="45" />
     </div>
   )
 }
