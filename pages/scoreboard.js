@@ -17,6 +17,7 @@ export default function Scoreboard(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Score"/>
+    <p className={multiClass([styles.centered, styles.subTitleComp])}>{"Question: " + (props.Game.QuestionsAsked+1) + "/10"} </p>
     <comp.ListHolder next="/winner">
     	<ScoreBoxList players={props.Players} />
     </comp.ListHolder>
@@ -74,9 +75,9 @@ class ScoreBoxList extends React.Component {
 
     );
     return (
-      <div>
+      <React.Fragment>
       {listItems}
-      </div>
+      </React.Fragment>
     )
   }
 }

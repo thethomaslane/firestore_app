@@ -30,7 +30,6 @@ useEffect(() => {
     </div>
   )
 }
-
 export async function getServerSideProps() {}
  
 function WinnerList(props) {
