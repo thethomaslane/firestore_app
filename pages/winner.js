@@ -31,7 +31,6 @@ useEffect(() => {
   )
 }
 
-export async function getServerSideProps() {}
  
 function WinnerList(props) {
   let highScore = props.players[0].Score;
