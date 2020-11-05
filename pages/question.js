@@ -33,7 +33,6 @@ export default function Question(props) {
 }
 
  
-export async function getServerSideProps() {}
 
 class QuestionForm extends React.Component {
   constructor(props) {
@@ -57,6 +56,7 @@ class QuestionForm extends React.Component {
      return (
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text={this.props.role}/>
+        {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>Try to blend in with the enemy!</p>}
         <QuestionText question={this.props.question}/>
         <comp.Input text="Answer" maxLength="40" />
       </comp.MenuBox>

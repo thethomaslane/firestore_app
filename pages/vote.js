@@ -7,6 +7,10 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 
 export default function Vote(props) {
+  let subtext = "Vote out the Phony!";
+  if (props.CurrentPlayer.Name == props.Game.Phony) {
+    subtext = "Don't get caught!"
+  }
 
 
   return (
@@ -16,7 +20,8 @@ export default function Vote(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text={props.Game.Questions[props.Game.QuestionsAsked].Text}/>
+    <comp.SubTitle text={subtext}/>
+    <p className={multiClass([styles.centered, styles.noMarginTopBottom, styles.subTitleComp])}>{"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}</p>
     <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked}/>
     <comp.Timer TotalTime="45" />
     </div>

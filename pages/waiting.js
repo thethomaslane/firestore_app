@@ -13,6 +13,7 @@ export default function WaitForPlayers(props) {
     </comp.Header>
     <comp.SubTitle text="Waiting For Players..."/>
     <comp.SubTitle text={props.Players.length + "/20"} />
+    {props.Players.length < 3 && <p className={multiClass([styles.centered, styles.subTitleComp])}>Game can't start with less than 3 players</p>}
     <comp.ListHolder>
       <UsernameBoxList players={props.Players} />
     </comp.ListHolder>
