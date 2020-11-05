@@ -75,9 +75,9 @@ class ScoreBoxList extends React.Component {
 
     );
     return (
-      <div>
+      <React.Fragment>
       {listItems}
-      </div>
+      </React.Fragment>
     )
   }
 }

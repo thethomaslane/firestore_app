@@ -72,7 +72,7 @@ const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinG
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const socketServer = process.env.SocketServer || "ws://phrenemiessocketserver.herokuapp.com/";
+const socketServer = process.env.SocketServer || "ws://localhost:8080/";
 const connection = new W3CWebSocket(socketServer);
 
 
@@ -86,7 +86,7 @@ connection.onopen = () => {
 }
 
 connection.onerror = (error) => {
-  alert("You have lost connection to the server, try refreshing. \n Error:" + error);
+  console.log("You have lost connection to the server, try refreshing.");
 }
 
 connection.onmessage =  (e) => {
