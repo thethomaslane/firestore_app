@@ -32,7 +32,7 @@ export default function Question(props) {
   )
 }
 
- 
+ export async function getServerSideProps() {}
 
 class QuestionForm extends React.Component {
   constructor(props) {

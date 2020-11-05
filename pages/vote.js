@@ -27,7 +27,7 @@ export default function Vote(props) {
     </div>
   )
 }
-
+export async function getServerSideProps() {}
 
 
 
