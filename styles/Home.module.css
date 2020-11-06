@@ -27,6 +27,14 @@
 
 }
 
+.selectLabel {
+  display: inline-block;
+  font-size: 1.35rem;
+  min-width: 9.5rem;
+  text-align: left;
+  margin-right: 0rem;
+}
+
 .answerBox {
   text-align: left;
   padding: 2px;
@@ -153,7 +161,7 @@
 }
 
 .subTitleComp {
-  width: 15rem;
+  width: 20rem;
   text-align: center;
   margin: auto;
 

@@ -59,13 +59,13 @@ class CreateGameForm extends React.Component {
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text="Create Game" />
         <comp.Input text="Username" maxLength="12"  />
+        <comp.Select Options={[3,5,10,15]} Select="NumberOfQuestions" SelectLabel="Set Questions:" Recommended={10} />
+        <br />
+        <br />
         <comp.Select Options={[15,30,45,60,75,90,120]} Select="QuestionTime" SelectLabel="Set Question Time:" Recommended={30} />
         <br />
         <br />
         <comp.Select Options={[15,30,45,60,75,90,120]} Select="VoteTime" SelectLabel="Set Voting Time:" Recommended={45} />
-        <br />
-        <br />
-        <comp.Select Options={[3,5,10,15]} Select="NumberOfQuestions" SelectLabel="Set Number of Questions:" Recommended={10} />
         <br />
         <GameCreatorButton connection={this.props.connection} router={this.props.router}/>
       </comp.MenuBox>
