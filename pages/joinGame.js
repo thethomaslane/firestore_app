@@ -3,8 +3,10 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
+import { useRouter } from 'next/router'
 
 export default function JoinGame(props) {
+  let router = useRouter();
   return (
    <div>
      <comp.Background />
@@ -13,7 +15,7 @@ export default function JoinGame(props) {
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-      <GameJoinerForm connection={props.connection} />
+      <GameJoinerForm connection={props.connection} router={router}/>
     </div>
   )
 }
@@ -27,7 +29,7 @@ class GameJoinerForm extends React.Component {
         <comp.MenuTitle text="Join Game" />
         <comp.Input text="PIN" maxLength="8"/>
         <comp.Input text="Username" maxLength="12"/>
-        <GameJoinerButton  connection={this.props.connection}/>
+        <GameJoinerButton  connection={this.props.connection} router={this.props.router}/>
       </comp.MenuBox>
     )
   }
@@ -49,13 +51,14 @@ class GameJoinerButton extends React.Component {
       setCookie("start", "false");
       this.props.connection.send(JSON.stringify({Code: "Open"}))
       this.props.connection.send(JSON.stringify({Code: "Join Game", Player: {Pin: pin, Name: username, Host: false}}));
+      this.props.router.push("/play");
     } else {alert("Username and Pin can only contain letters. \n Username must be between 1 and 12 characters long. \n Pin must be 8 characters long.")}
   }
   render() {
   
     return (
       <div className={multiClass([styles.centered])} >
-        <comp.PrimaryButton id="GameJoinerButton" text="Join Game" clickFunction={this.setUsernameAndPin} next="/play" />
+        <comp.PrimaryButton id="GameJoinerButton" text="Join Game" clickFunction={this.setUsernameAndPin} />
       </div>
     )
   }

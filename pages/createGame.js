@@ -4,8 +4,10 @@ import styles from '../styles/Home.module.css'
 import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 import generatePin from '../utilities/generatePin.js'
+import { useRouter } from 'next/router'
 
 export default function CreateGame(props) {
+  let router = useRouter();
   return (
    <div> 
    <comp.Background />
@@ -14,12 +16,11 @@ export default function CreateGame(props) {
     </comp.Header>
     <br />
     <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-    <CreateGameForm connection={props.connection}/>
+    <CreateGameForm connection={props.connection} router={router} />
     </div>
   )
 }
 
-  
 
 class GameCreatorButton extends React.Component {
   constructor(props) {
@@ -37,15 +38,16 @@ class GameCreatorButton extends React.Component {
       setCookie("pin", pin);
       setCookie("start", "false");
       this.props.connection.send(JSON.stringify({Code: "Open"}));
-      this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin, QuestionTime: questionTime, VoteTime: voteTime, NumberOfQuestions: numberOfQuestions}}));
-      setTimeout(() => {this.props.connection.send(JSON.stringify({Code: "Create Player", Player: {Pin: pin, Name: username, Host: true}}));}, 1000);
+      this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin, QuestionTime: questionTime, VoteTime: voteTime, NumberOfQuestions: numberOfQuestions},
+        Player: {Pin: pin, Name: username, Host: true}}));
+      this.props.router.push("/play");
     }
     else {alert("Username can only contain letters and be between 1 and 12 characters in length.")}
   }
   render() {
     return (
       <div className={multiClass([styles.paddedTopBottom, styles.centered])} >
-        <comp.PrimaryButton id="GameCreatorButton" text="Create Game" clickFunction={this.setUsernameAndPin} next="/play" />
+        <comp.PrimaryButton id="GameCreatorButton" text="Create Game" clickFunction={this.setUsernameAndPin}  />
       </div>
     )
   }
@@ -65,7 +67,7 @@ class CreateGameForm extends React.Component {
         <br />
         <comp.Select Options={[3,5,10,15]} Select="NumberOfQuestions" SelectLabel="Set Number of Questions:" Recommended={10} />
         <br />
-        <GameCreatorButton connection={this.props.connection}/>
+        <GameCreatorButton connection={this.props.connection} router={this.props.router}/>
       </comp.MenuBox>
     )
   }
