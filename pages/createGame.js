@@ -28,13 +28,16 @@ class GameCreatorButton extends React.Component {
   }
   setUsernameAndPin() {
     let username = document.getElementById("Username").value;
+    let questionTime = document.getElementById("QuestionTime").value;
+    let voteTime = document.getElementById("VoteTime").value;
+    let numberOfQuestions = document.getElementById("NumberOfQuestions").value;
     if (username.match(/^[a-zA-Z]+$/) && username.length >=1) {
       let pin = generatePin();
       setCookie("username", username);
       setCookie("pin", pin);
       setCookie("start", "false");
       this.props.connection.send(JSON.stringify({Code: "Open"}));
-      this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin}}));
+      this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin, QuestionTime: questionTime, VoteTime: voteTime, NumberOfQuestions: numberOfQuestions}}));
       setTimeout(() => {this.props.connection.send(JSON.stringify({Code: "Create Player", Player: {Pin: pin, Name: username, Host: true}}));}, 1000);
     }
     else {alert("Username can only contain letters and be between 1 and 12 characters in length.")}
@@ -54,6 +57,13 @@ class CreateGameForm extends React.Component {
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text="Create Game" />
         <comp.Input text="Username" maxLength="12"  />
+        <comp.Select Options={[15,30,45,60,75,90,120]} Select="QuestionTime" SelectLabel="Set Question Time:" Recommended={30} />
+        <br />
+        <br />
+        <comp.Select Options={[15,30,45,60,75,90,120]} Select="VoteTime" SelectLabel="Set Voting Time:" Recommended={45} />
+        <br />
+        <br />
+        <comp.Select Options={[3,5,10,15]} Select="NumberOfQuestions" SelectLabel="Set Number of Questions:" Recommended={10} />
         <br />
         <GameCreatorButton connection={this.props.connection}/>
       </comp.MenuBox>

@@ -27,7 +27,7 @@ export default function Question(props) {
     </comp.Header>
     <comp.SubTitle text="Question"/>
     <QuestionForm role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host}/>
-    <comp.Timer TotalTime="30" />
+    <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )
 }

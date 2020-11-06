@@ -17,7 +17,8 @@ export default function WaitForPlayers(props) {
     <comp.ListHolder>
       <UsernameBoxList players={props.Players} />
     </comp.ListHolder>
-    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions && props.Players.length >= 3} pin={props.Game.Pin}/>
+    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions && props.Players.length >= 0} 
+      pin={props.Game.Pin} QuestionTime={props.Game.QuestionTime} VoteTime={props.Game.VoteTime}/>
     </div>
   )
 }
@@ -76,7 +77,7 @@ class GameStarterButton extends React.Component {
   }
 
   startGame() {
-    this.props.connection.send(JSON.stringify({Code: "Start Game", Pin: this.props.pin}));
+    this.props.connection.send(JSON.stringify({Code: "Start Game", Pin: this.props.pin, QuestionTime: this.props.QuestionTime, VoteTime: this.props.VoteTime}));
   }
   render() {
     if (this.props.display) {

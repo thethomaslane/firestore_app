@@ -23,7 +23,7 @@ export default function Vote(props) {
     <comp.SubTitle text={subtext}/>
     <p className={multiClass([styles.centered, styles.noMarginTopBottom, styles.subTitleComp])}>{"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}</p>
     <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked}/>
-    <comp.Timer TotalTime="45" />
+    <comp.Timer TotalTime={props.Game.VoteTime} />
     </div>
   )
 }

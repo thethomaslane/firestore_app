@@ -107,6 +107,24 @@ export class Input extends React.Component {
 }
 
 
+export class Select extends React.Component {
+  render() {
+    const Options = this.props.Options.map(function (option, index) {
+    return (<option key={option} value={option} >{option}</option>)
+  })
+
+    return (
+      <React.Fragment>
+      <label className={multiClass([styles.miniWhiteTextBordered])} htmlFor={this.props.Select}>{this.props.SelectLabel}</label>
+      <select defaultValue={this.props.Recommended} name={this.props.Select} id={this.props.Select}>
+        {Options}
+      </select>
+      </React.Fragment>
+    )
+  }
+}
+
+
 
 export class MenuTitle extends React.Component {
   render() {
@@ -154,7 +172,7 @@ export class ListHolder extends React.Component {
 export class Timer extends React.Component {
     constructor(props) {
     super(props);
-    this.state = {TimeLeft: parseInt(props.TotalTime)};
+    this.state = {TimeLeft: props.TotalTime};
   }
 
   componentDidMount() {
