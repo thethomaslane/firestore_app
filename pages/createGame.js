@@ -14,7 +14,7 @@ export default function CreateGame(props) {
     </comp.Header>
     <br />
     <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-    <CreateGameForm connection={props.connection}/>
+    <CreateGameForm connection={props.connection} NoSleep={props.NoSleep}/>
     </div>
   )
 }
@@ -65,7 +65,7 @@ class CreateGameForm extends React.Component {
         <br />
         <comp.Select Options={[3,5,10,15]} Select="NumberOfQuestions" SelectLabel="Set Number of Questions:" Recommended={10} />
         <br />
-        <GameCreatorButton connection={this.props.connection}/>
+        <GameCreatorButton connection={this.props.connection} NoSleep={this.props.NoSleep}/>
       </comp.MenuBox>
     )
   }

@@ -4,6 +4,7 @@ import App from 'next/app';
 import { withRouter } from 'next/router'
 import * as components from "../components/components.js"
 import ReactDOM from 'react-dom';
+import NoSleep from 'nosleep.js';
 import scoreboard from "./scoreboard.js"
 import createGame from "./createGame.js"
 import joinGame from "./joinGame.js"
@@ -21,6 +22,7 @@ class MyApp extends App {
     	super(props);
     	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting", ErrorMessage: null};
       this.resetState = this.resetState.bind(this);
+      this.noSleep = new NoSleep();
         
 
 	}
@@ -55,7 +57,7 @@ class MyApp extends App {
     	return (
         <React.Fragment>
           <components.PhrenemiesHeader />
-      		<Component {...pageProps} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection} ErrorMessage={this.state.ErrorMessage}></Component>
+      		<Component {...pageProps} NoSleep={this.noSleep} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection} ErrorMessage={this.state.ErrorMessage}></Component>
     		</React.Fragment>
         );
   }
