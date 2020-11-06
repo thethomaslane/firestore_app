@@ -115,7 +115,7 @@ export class Select extends React.Component {
 
     return (
       <React.Fragment>
-      <label className={multiClass([styles.miniWhiteTextBordered])} htmlFor={this.props.Select}>{this.props.SelectLabel}</label>
+      <label className={multiClass([styles.miniWhiteTextBordered, styles.selectLabel])} htmlFor={this.props.Select}>{this.props.SelectLabel}</label>
       <select defaultValue={this.props.Recommended} name={this.props.Select} id={this.props.Select}>
         {Options}
       </select>
