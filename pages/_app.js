@@ -3,8 +3,8 @@ import React from 'react';
 import App from 'next/app';
 import { withRouter } from 'next/router'
 import * as components from "../components/components.js"
+import NoSleep from "../utilities/nosleep.js"
 import ReactDOM from 'react-dom';
-import NoSleep from 'nosleep.js';
 import scoreboard from "./scoreboard.js"
 import createGame from "./createGame.js"
 import joinGame from "./joinGame.js"
@@ -22,7 +22,7 @@ class MyApp extends App {
     	super(props);
     	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting", ErrorMessage: null};
       this.resetState = this.resetState.bind(this);
-      this.noSleep = new NoSleep();
+      
         
 
 	}
@@ -37,6 +37,7 @@ class MyApp extends App {
         comp = ReactDOM.findDOMNode(this);
         comp.addEventListener("recieveGame", this.handleRecieveGame);
         comp.addEventListener("recievePlayers", this.handleRecievePlayers);
+        this.noSleep = new NoSleep();
 
     }
 

@@ -8,6 +8,7 @@ export default function Home(props) {
 
 useEffect(() => {
   if (props.CurrentPlayer.Host) {
+    props.NoSleep.disable();
     setTimeout(() => {props.connection.send(JSON.stringify({Code: "Delete Game", Pin: props.Game.Pin}))}, 2000);
   }
   setTimeout(() => {props.connection.send(JSON.stringify({Code: "Close Connection"}))}, 2000);
