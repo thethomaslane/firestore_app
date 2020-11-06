@@ -94,6 +94,15 @@ export function PrimaryButton(props) {
 
 
 export class Input extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange() {
+    if (this.props.NoSleep) {
+      this.props.NoSleep.enable();
+    }
+  }
   render() {
     return (
       <div className={multiClass([styles.paddedTopBottom])}>
