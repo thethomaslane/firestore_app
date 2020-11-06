@@ -17,7 +17,7 @@ export default function WaitForPlayers(props) {
     <comp.ListHolder>
       <UsernameBoxList players={props.Players} />
     </comp.ListHolder>
-    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions && props.Players.length >= 0} 
+    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions && props.Players.length >= 3} 
       pin={props.Game.Pin} QuestionTime={props.Game.QuestionTime} VoteTime={props.Game.VoteTime}/>
     </div>
   )
