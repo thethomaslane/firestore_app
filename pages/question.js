@@ -6,7 +6,7 @@ import * as comp from "../components/components.js"
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 
-export default function Question(props) {
+export default function Question(props) { 
   let questionText;
   let role;
   if (props.CurrentPlayer.Name == props.Game.Phony) {
