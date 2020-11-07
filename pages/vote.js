@@ -60,10 +60,12 @@ class VoteListHolder extends React.Component {
     let currentPlayer = this.props.playerName;
     let selected = this.state.selected;
     let onSelect = this.onSelect;
+    let questionNumber = this.questionNumber;
     const users = this.props.userList.map(function (user, index) {
     if (user.Name == currentPlayer) {return null}
     else {
-    return <AnswerBox selected={selected} username={user.Name} key={index} color={user.Color} answer={user.Answer} clickHandler={onSelect}/>
+      if (user.LastQuestionAnswered != questionNumber) {user.Answer = "Failed to Answer"}
+    return (<AnswerBox selected={selected} username={user.Name} key={index} color={user.Color} answer={user.Answer} clickHandler={onSelect}/>)
   }
 }
   );

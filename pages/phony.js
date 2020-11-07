@@ -15,7 +15,7 @@ export default function Phony(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Phony!"/>
-    <PhonyList players={players} phony={props.Game.Phony} question={props.Game.Questions[props.Game.QuestionsAsked].AltText}/>
+    <PhonyList questionNumber={props.Game.QuestionsAsked} players={players} phony={props.Game.Phony} question={props.Game.Questions[props.Game.QuestionsAsked].AltText}/>
     </div>
   )
 }
@@ -24,7 +24,9 @@ export async function getServerSideProps() {}
  
 function PhonyList(props) {
   let highScore = props.players[0].Score;
+  let questionNumber = props.questionNumber;
   const listItems = props.players.map(function(player, index) {
+      if (player.LastQuestionAnswered != questionNumber) {player.Answer = "Failed to Answer"}
       if (player.Name == props.phony) {
       return (<PhonyBox key={player.Name} username={player.Name} question={props.question} answer={player.Answer} color={player.Color} />)
     }
