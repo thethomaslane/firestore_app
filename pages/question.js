@@ -26,7 +26,7 @@ export default function Question(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Question"/>
-    <QuestionForm role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host} NoSleep={props.NoSleep}/>
+    <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host} NoSleep={props.NoSleep}/>
     <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )
@@ -49,7 +49,7 @@ class QuestionForm extends React.Component {
 
   submitAnswer() {
     let answer = document.getElementById("Answer").value;
-    this.props.connection.send(JSON.stringify({Code: "Submit Answer", Pin: this.props.pin, Answer: answer, PlayerName: this.props.playerName}));
+    this.props.connection.send(JSON.stringify({Code: "Submit Answer", Pin: this.props.pin, Answer: answer, PlayerName: this.props.playerName, LastQuestionAnswered: this.props.QuestionNumber}));
 
   }
    render() {
