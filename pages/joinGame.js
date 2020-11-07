@@ -15,7 +15,7 @@ export default function JoinGame(props) {
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-      <GameJoinerForm connection={props.connection} router={router}/>
+      <GameJoinerForm connection={props.connection} router={router} NoSleep={props.NoSleep}/>
     </div>
   )
 }
@@ -29,7 +29,7 @@ class GameJoinerForm extends React.Component {
         <comp.MenuTitle text="Join Game" />
         <comp.Input text="PIN" maxLength="8"/>
         <comp.Input text="Username" maxLength="12"/>
-        <GameJoinerButton  connection={this.props.connection} router={this.props.router}/>
+        <GameJoinerButton  connection={this.props.connection} router={this.props.router} NoSleep={this.props.NoSleep}/>
       </comp.MenuBox>
     )
   }
@@ -52,6 +52,7 @@ class GameJoinerButton extends React.Component {
       this.props.connection.send(JSON.stringify({Code: "Open"}))
       this.props.connection.send(JSON.stringify({Code: "Join Game", Player: {Pin: pin, Name: username, Host: false}}));
       this.props.router.push("/play");
+      this.props.NoSleep.enable();
     } else {alert("Username and Pin can only contain letters. \n Username must be between 1 and 12 characters long. \n Pin must be 8 characters long.")}
   }
   render() {

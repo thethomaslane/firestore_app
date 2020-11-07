@@ -26,7 +26,7 @@ export default function Question(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Question"/>
-    <QuestionForm role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host}/>
+    <QuestionForm role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host} NoSleep={props.NoSleep}/>
     <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )
@@ -58,7 +58,7 @@ class QuestionForm extends React.Component {
         <comp.MenuTitle text={this.props.role}/>
         {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>Try to blend in with the enemy!</p>}
         <QuestionText question={this.props.question}/>
-        <comp.Input text="Answer" maxLength="40" />
+        <comp.Input text="Answer" maxLength="40" NoSleep={this.props.NoSleep}/>
       </comp.MenuBox>
      )
    }

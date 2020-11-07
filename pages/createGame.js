@@ -16,7 +16,7 @@ export default function CreateGame(props) {
     </comp.Header>
     <br />
     <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-    <CreateGameForm connection={props.connection} router={router} />
+    <CreateGameForm connection={props.connection} router={router} NoSleep={props.NoSleep}/>
     </div>
   )
 }
@@ -41,6 +41,7 @@ class GameCreatorButton extends React.Component {
       this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin, QuestionTime: questionTime, VoteTime: voteTime, NumberOfQuestions: numberOfQuestions},
         Player: {Pin: pin, Name: username, Host: true}}));
       this.props.router.push("/play");
+      this.props.NoSleep.enable();
     }
     else {alert("Username can only contain letters and be between 1 and 12 characters in length.")}
   }
@@ -67,7 +68,7 @@ class CreateGameForm extends React.Component {
         <br />
         <comp.Select Options={[15,30,45,60,75,90,120]} Select="VoteTime" SelectLabel="Set Voting Time:" Recommended={45} />
         <br />
-        <GameCreatorButton connection={this.props.connection} router={this.props.router}/>
+        <GameCreatorButton connection={this.props.connection} router={this.props.router} NoSleep={this.props.NoSleep}/>
       </comp.MenuBox>
     )
   }

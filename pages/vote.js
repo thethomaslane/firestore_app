@@ -22,7 +22,7 @@ export default function Vote(props) {
     </comp.Header>
     <comp.SubTitle text={subtext}/>
     <p className={multiClass([styles.centered, styles.noMarginTopBottom, styles.subTitleComp])}>{"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}</p>
-    <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked}/>
+    <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked} NoSleep={props.NoSleep}/>
     <comp.Timer TotalTime={props.Game.VoteTime} />
     </div>
   )
@@ -44,6 +44,7 @@ class VoteListHolder extends React.Component {
 
   onSelect(username) {
     this.setState({selected: username});
+    this.props.NoSleep.enable();
   }
 
   componentWillUnmount() {
