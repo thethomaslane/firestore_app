@@ -13,6 +13,7 @@ import waiting from "./waiting.js"
 import vote from "./vote.js"
 import winner from "./winner.js"
 import phony from "./phony.js"
+import starting from "./starting.js"
 
 
 
@@ -71,7 +72,7 @@ export default MyApp;
 
 let comp;
 
-const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
+const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
