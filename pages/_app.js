@@ -75,7 +75,7 @@ const ComponentMap = {"scoreboard": scoreboard, "createGame": createGame, "joinG
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const socketServer = "ws://localhost:8080";
+const socketServer = "wss://my-second-app-dot-test-cd477.uc.r.appspot.com";
 const connection = new W3CWebSocket(socketServer);
 
 
