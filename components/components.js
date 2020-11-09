@@ -87,7 +87,7 @@ export function PrimaryButton(props) {
 
     }
     return (
-      <button id={props.id} className={multiClass([styles.primaryButton])} onClick={handleClick}>{props.text}</button>
+      <button id={props.id} disabled={props.disabled} className={multiClass([styles.primaryButton])} onClick={handleClick}>{props.text}</button>
     )
 }
 
@@ -108,7 +108,7 @@ export class Input extends React.Component {
       <div className={multiClass([styles.paddedTopBottom])}>
         <p className={multiClass([styles.miniWhiteTextBordered, styles.noMarginTopBottom])}>{this.props.text + ":"}</p>
         <div className={multiClass([styles.centered])}>
-          <input id={this.props.text} className={multiClass([styles.inputSize])} autoComplete="off" placeholder={"Enter " + this.props.text} type="text" maxLength={this.props.maxLength} />
+          <input id={this.props.text} disabled={this.props.disabled} className={multiClass([styles.inputSize])} autoComplete="off" placeholder={"Enter " + this.props.text} type="text" maxLength={this.props.maxLength} />
         </div>
       </div>
     )
@@ -211,11 +211,11 @@ export class Timer extends React.Component {
   render() {
     return (
       <div className={multiClass(["timer", styles.centered])}>
-      <p >Time Left: {this.state.TimeLeft}</p>
+      <p className={multiClass([styles.noMarginTopBottom])}>Timer:</p>  <p className={multiClass([styles.noMarginTopBottom])}>{this.state.TimeLeft}</p>
       <style jsx>{`
         .timer {
           position: absolute;
-          top: 0.5rem;
+          top: 2rem;
           position: absolute;
           left: 1rem;
           text-align: center;
