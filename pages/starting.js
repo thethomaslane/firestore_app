@@ -11,15 +11,16 @@ export default function Starting(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Phrenemies!"/>
-    <CancelButton connection={props.connection}/>
+    <comp.SubTitle text="Starting in:"/>
+    <StartingBox />
+    <CancelButton connection={props.connection} pin={props.Game.Pin} />
      </div>
   )
 }
 
 
 
-class PhonyBox extends React.Component {
+class StartingBox extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {time: 5};
@@ -86,7 +87,7 @@ class CancelButton extends React.Component {
   render() {
     return (
       <div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
-        <comp.PrimaryButton id="HomeButton" text="Play Again" />
+        <comp.PrimaryButton id="HomeButton" text="Cancel Start" clickFunction={this.cancel}/>
       </div>
     )
   }
