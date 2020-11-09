@@ -25,6 +25,7 @@ export async function getServerSideProps() {}
 function PhonyList(props) {
   let questionNumber = props.questionNumber;
   const listItems = props.players.map(function(player, index) {
+      if (player.LastQuestionAnswered != questionNumber) {player.Answer = "Failed to Answer"}
       if (player.Name == props.phony) {
       return (<PhonyBox key={player.Name} username={player.Name} question={props.question} answer={player.LastQuestionAnswered == questionNumber && player.Answer} color={player.Color} />)
     }

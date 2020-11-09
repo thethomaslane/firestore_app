@@ -63,6 +63,7 @@ class QuestionForm extends React.Component {
       this.props.connection.send(JSON.stringify({Code: "Submit Answer", Pin: this.props.pin, Answer: answer, PlayerName: this.props.CurrentPlayer.Name, LastQuestionAnswered: this.props.QuestionNumber}));
     }
   }
+  
    render() {
 
      return (
