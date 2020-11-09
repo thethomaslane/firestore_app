@@ -14,7 +14,7 @@ export default function JoinGame(props) {
         <comp.Title text="Phrenemies!" />
       </comp.Header>
       <br />
-      <comp.SubTitle text="The game where you find which of your friends are phonies!" />
+      <comp.SubTitle text="Which of your friends are Phonies?!" />
       <GameJoinerForm connection={props.connection} router={router} NoSleep={props.NoSleep}/>
     </div>
   )

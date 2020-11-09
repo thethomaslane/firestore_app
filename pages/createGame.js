@@ -15,7 +15,7 @@ export default function CreateGame(props) {
       <comp.Title text="Phrenemies!" />
     </comp.Header>
     <br />
-    <comp.SubTitle text="The game where you find which of your friends are phonies!" />
+    <comp.SubTitle text="Which of your friends are Phonies?!" />
     <CreateGameForm connection={props.connection} router={router} NoSleep={props.NoSleep}/>
     </div>
   )

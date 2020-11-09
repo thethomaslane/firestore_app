@@ -208,9 +208,12 @@ var NoSleep = function () {
     key: "disable",
     value: function disable() {
       if (nativeWakeLock()) {
+        try {
         this._wakeLock.release();
+        } catch {}
         this._wakeLock = null;
-      } else if (oldIOS()) {
+      }
+       else if (oldIOS()) {
         if (this.noSleepTimer) {
           console.warn("\n          NoSleep now disabled for older iOS devices.\n        ");
           window.clearInterval(this.noSleepTimer);

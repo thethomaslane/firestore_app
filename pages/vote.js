@@ -8,10 +8,22 @@ import { useEffect } from 'react';
 
 export default function Vote(props) {
   let subtext = "Vote out the Phony!";
+  let disabled = false;
+  let selected = "";
   if (props.CurrentPlayer.Name == props.Game.Phony) {
     subtext = "Don't get caught!"
   }
 
+  let currentPlayer;
+  for (var i = props.Players.length - 1; i >= 0; i--) {
+    if (props.Players[i].Name == props.CurrentPlayer.Name) {currentPlayer = props.Players[i]}
+  }
+
+  try {disabled = (currentPlayer.LastScored == props.Game.QuestionsAsked);} catch { disabled = false}
+     
+    if (disabled) {
+      selected = currentPlayer.Vote;
+    }
 
   return (
     <div>
@@ -22,7 +34,7 @@ export default function Vote(props) {
     </comp.Header>
     <comp.SubTitle text={subtext}/>
     <p className={multiClass([styles.centered, styles.noMarginTopBottom, styles.subTitleComp])}>{"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}</p>
-    <VoteListHolder userList={props.Players} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} questionNumber={props.Game.QuestionsAsked} NoSleep={props.NoSleep}/>
+    <VoteListHolder selected={selected} disabled={disabled} userList={props.Players} connection={props.connection} pin={props.Game.Pin} CurrentPlayer={currentPlayer} questionNumber={props.Game.QuestionsAsked} NoSleep={props.NoSleep}/>
     <comp.Timer TotalTime={props.Game.VoteTime} />
     </div>
   )
@@ -37,35 +49,47 @@ class VoteListHolder extends React.Component {
   constructor(props) {
     super(props);
     this.onSelect = this.onSelect.bind(this)
-    this.state = {selected: ""}
     this.submitVote = this.submitVote.bind(this)
     this.questionNumber = this.props.questionNumber;
+    this.checkVote = this.checkVote.bind(this);
+    this.state = {selected: this.props.selected}
+    setTimeout(() => {this.checkVote()}, 500);
   }
 
   onSelect(username) {
-    this.setState({selected: username});
-    this.props.NoSleep.enable();
+    if (!this.props.disabled) {
+      this.setState({selected: username});
+      this.props.NoSleep.enable();
+    }
   }
+
+  checkVote() {
+    this.setState({selected: this.props.selected});
+  }
+
 
   componentWillUnmount() {
     this.submitVote();
   }
 
   submitVote() {
-    this.props.connection.send(JSON.stringify({Code: "Submit Vote", Pin: this.props.pin, Vote: this.state.selected,
-      PlayerName: this.props.playerName, QuestionNumber: this.questionNumber}));
+    if (!this.props.disabled && this.state.selected != "") {
+      this.props.connection.send(JSON.stringify({Code: "Submit Vote", Pin: this.props.pin, Vote: this.state.selected,
+        PlayerName: this.props.CurrentPlayer.Name, QuestionNumber: this.questionNumber}));
+    }
 
   }
   render() {
-    let currentPlayer = this.props.playerName;
+    let currentPlayer = "";
+    try {currentPlayer = this.props.CurrentPlayer.Name;} catch {}
     let selected = this.state.selected;
     let onSelect = this.onSelect;
-    let questionNumber = this.questionNumber;
+    let disabled = this.props.disabled;
+    let questionNumber = this.props.questionNumber;
     const users = this.props.userList.map(function (user, index) {
     if (user.Name == currentPlayer) {return null}
     else {
-      if (user.LastQuestionAnswered != questionNumber) {user.Answer = "Failed to Answer"}
-    return (<AnswerBox selected={selected} username={user.Name} key={index} color={user.Color} answer={user.Answer} clickHandler={onSelect}/>)
+    return <AnswerBox enabled={!disabled} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
   }
 }
   );
@@ -73,6 +97,9 @@ class VoteListHolder extends React.Component {
       <div className={multiClass([styles.centered])}>
         <div className={multiClass(["gridContainer", styles.listHolder, styles.centered])} >
           {users}
+        </div>
+        <div className={multiClass([styles.centered])}>
+          <comp.PrimaryButton className={multiClass([styles.centered])} id="VoteSubmitterButton" text="Submit Vote" clickFunction={this.submitVote} disabled={this.props.disabled}  />
         </div>
       </div>
     )
@@ -90,7 +117,7 @@ class AnswerBox extends React.Component {
   }
   render() {
     return (
-      <div onClick={this.handleClick} id={this.props.username} className={multiClass([styles.answerBox, "gridItem", this.props.selected==this.props.username && "border"])}>
+      <div onClick={this.handleClick} id={this.props.username} className={multiClass([styles.answerBox, , this.props.disabled && "disabled", "gridItem", this.props.selected==this.props.username && "border"])}>
       <style jsx>{`
         .username {
           font-family: Bubblegum Sans;

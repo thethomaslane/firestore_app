@@ -60,7 +60,7 @@ class WinnerBox extends React.Component {
           -webkit-text-stroke-width: 1.5px;
           -webkit-text-stroke-color: black;
 
-          margin-top: 1.5em;
+          margin-top: 1.5rem;
           margin-bottom: 0;
         }
       `}</style>

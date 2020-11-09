@@ -42,6 +42,10 @@ button {
   	background-color: #FFFFFF;
 }
 
+.disabled {
+  pointer-events:none;
+}
+
 @media only screen and (max-width: 350px) {
 	html, body {
   	font-size: 10px;

@@ -15,7 +15,7 @@ export default function Phony(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Phony!"/>
-    <PhonyList questionNumber={props.Game.QuestionsAsked} players={players} phony={props.Game.Phony} question={props.Game.Questions[props.Game.QuestionsAsked].AltText}/>
+    <PhonyList players={players} phony={props.Game.Phony} questionNumber={props.Game.QuestionsAsked} question={props.Game.Questions[props.Game.QuestionsAsked].AltText}/>
     </div>
   )
 }
@@ -23,12 +23,11 @@ export default function Phony(props) {
 export async function getServerSideProps() {}
  
 function PhonyList(props) {
-  let highScore = props.players[0].Score;
   let questionNumber = props.questionNumber;
   const listItems = props.players.map(function(player, index) {
       if (player.LastQuestionAnswered != questionNumber) {player.Answer = "Failed to Answer"}
       if (player.Name == props.phony) {
-      return (<PhonyBox key={player.Name} username={player.Name} question={props.question} answer={player.Answer} color={player.Color} />)
+      return (<PhonyBox key={player.Name} username={player.Name} question={props.question} answer={player.LastQuestionAnswered == questionNumber && player.Answer} color={player.Color} />)
     }
     }
     );
@@ -51,7 +50,7 @@ class PhonyBox extends React.Component {
           -webkit-text-stroke-width: 1.5px;
           -webkit-text-stroke-color: black;
 
-          margin-top: 1.5em;
+          margin-top: 1.5rem;
           margin-bottom: 0;
         }
       `}</style>

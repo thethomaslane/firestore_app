@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 export default function Question(props) { 
   let questionText;
   let role;
+  let disabled = 1;
   if (props.CurrentPlayer.Name == props.Game.Phony) {
     questionText = props.Game.Questions[props.Game.QuestionsAsked].AltText;
     role = "Phony!"
@@ -17,6 +18,16 @@ export default function Question(props) {
     role = "Friend"
 
   }
+    let currentPlayer;
+    for (var i = props.Players.length - 1; i >= 0; i--) {
+      if (props.Players[i].Name == props.CurrentPlayer.Name) {currentPlayer = props.Players[i]}
+    }
+  
+    try {disabled = (currentPlayer.LastQuestionAnswered == props.Game.QuestionsAsked);} catch { disabled = false}
+    if (disabled) {
+      console.log("check")
+      document.getElementById("Answer").value = currentPlayer.Answer;
+    }
   return (
     <div>
 
@@ -26,7 +37,7 @@ export default function Question(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Question"/>
-    <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} host={props.CurrentPlayer.Host} NoSleep={props.NoSleep}/>
+    <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} NoSleep={props.NoSleep}/>
     <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )
@@ -40,25 +51,30 @@ class QuestionForm extends React.Component {
       this.submitAnswer = this.submitAnswer.bind(this);
   }
 
-  componentDidMount() {
-  }
 
   componentWillUnmount() {
     this.submitAnswer();
   }
 
+
   submitAnswer() {
     let answer = document.getElementById("Answer").value;
-    this.props.connection.send(JSON.stringify({Code: "Submit Answer", Pin: this.props.pin, Answer: answer, PlayerName: this.props.playerName, LastQuestionAnswered: this.props.QuestionNumber}));
-
+    if(!this.props.disabled && answer != "") {
+      this.props.connection.send(JSON.stringify({Code: "Submit Answer", Pin: this.props.pin, Answer: answer, PlayerName: this.props.CurrentPlayer.Name, LastQuestionAnswered: this.props.QuestionNumber}));
+    }
   }
+  
    render() {
+
      return (
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text={this.props.role}/>
         {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>Try to blend in with the enemy!</p>}
         <QuestionText question={this.props.question}/>
-        <comp.Input text="Answer" maxLength="40" NoSleep={this.props.NoSleep}/>
+        <comp.Input text="Answer" maxLength="40" NoSleep={this.props.NoSleep} disabled={this.props.disabled}/>
+        <div className={multiClass([styles.centered])}>
+          <comp.PrimaryButton className={multiClass([styles.centered])} id="AnswerSubmitterButton" text="Submit Answer" clickFunction={this.submitAnswer} disabled={this.props.disabled}  />
+        </div>
       </comp.MenuBox>
      )
    }
@@ -72,13 +88,4 @@ class QuestionText extends React.Component {
   }
 }
 
-/*class AnswerSubmitterButton extends React.Component {
-  render() {
-    return (
-      <div className={multiClass([styles.centered, styles.paddedTopBottom])} >
-        <comp.PrimaryButton id="AnswerSubmitterButton" text="Submit Answer"  />
-      </div>
-    )
-  }
-}*/
 
