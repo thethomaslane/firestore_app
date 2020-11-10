@@ -75,10 +75,8 @@ let comp;
 const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
 
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-
-const socketServer = "wss://my-second-app-dot-test-cd477.uc.r.appspot.com";
+const socketServer = process.env.NEXT_PUBLIC_SOCKET_SERVER;
 const connection = new W3CWebSocket(socketServer);
-
 
 let GameState = {Pin: "", GameState: "setup", ErrorMessage: null, newQuestion: {AltTitle: "waiting", Title: "waiting"} };
 let GamePlayers = [];
