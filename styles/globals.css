@@ -107,6 +107,15 @@ button {
   }
 }
 
+.prescale {
+  transform: scale(0);
+}
+.scalein {
+  transition-delay: 0.15s;
+  transition-duration: .15s;
+  transform: scale(1);
+}
+
 
 a {
   color: inherit;

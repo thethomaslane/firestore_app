@@ -28,11 +28,17 @@ class UsernameBox extends React.Component {
   constructor(props) {
     super(props);
     this.username = props.username;
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},(100 + (75 * this.props.delay)) )
   }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     if (this.username) {
     return (
-      <div className={multiClass([styles.userBox, "user", "gridItem", styles.centered])}>
+      <div className={multiClass([styles.userBox, "user", "gridItem", styles.centered, loadedClass])}>
         <h2 className={multiClass([styles.noMarginTopBottom,styles.whiteTextBordered])}>{this.props.username}</h2>
         <style jsx>{`
         .user {
@@ -60,8 +66,8 @@ class UsernameBoxList extends React.Component {
   }
   
   render() {
-    const listItems = this.props.players.map((player) =>
-      <UsernameBox key={player.Name} username={player.Name} color={player.Color}/>
+    const listItems = this.props.players.map((player, index) =>
+      <UsernameBox delay={index} key={player.Name} username={player.Name} color={player.Color}/>
     );
     return (
       <React.Fragment>

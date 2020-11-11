@@ -35,9 +35,18 @@ function PhonyList(props) {
   }
 
 class PhonyBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},150)
+  }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.winnerBox, styles.centered])}>
+      <div className={multiClass([styles.winnerBox, styles.centered, loadedClass])}>
       <style jsx>{`
         .username {
           font-family: Bubblegum Sans;

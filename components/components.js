@@ -36,9 +36,21 @@ export class Title extends React.Component {
 
 
 export class SubTitle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},1)
+  }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <h2 className={multiClass([styles.blackText, styles.centered, styles.subTitleComp, styles.noMarginTopBottom])}> {this.props.text} </h2>
+      <div className={multiClass([loadedClass])} >
+        <h2 className={multiClass([styles.blackText, styles.centered, styles.subTitleComp, styles.noMarginTopBottom, loadedClass])}> {this.props.text} </h2>
+        <p className={multiClass([styles.centered, styles.noMarginTopBottom, styles.subTitleComp, loadedClass])}>{this.props.subtext}</p>
+      </div>
     )
   }
 }
@@ -58,9 +70,18 @@ export class Header extends React.Component {
 
 
 export class MenuBox extends React.Component {
+    constructor(props) {
+    super(props);
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},150)
+  }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.menuBox, "box"])}> {this.props.children}
+      <div className={multiClass([styles.menuBox, "box", loadedClass])}> {this.props.children}
         <style jsx>{`
           .box {
             background-color: ${this.props.color};
@@ -72,9 +93,25 @@ export class MenuBox extends React.Component {
   }
 }
 
+export class PrimaryButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},300)
+  }
+  render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
+    return (
+      <PrimaryButtonFunction back={this.props.back} loadedClass={loadedClass} clickFunction={this.props.clickFunction} next={this.props.next} id={this.props.id} disabled={this.props.disabled} text={this.props.text}/>
+    )
+  }
+}
 
 
-export function PrimaryButton(props) {
+function PrimaryButtonFunction(props) {
     const router = useRouter();
     const handleClick = (e) => {
       if (props.clickFunction){
@@ -83,11 +120,14 @@ export function PrimaryButton(props) {
       if (props.next){
         router.push(props.next);
       }
+      if (props.back) {
+        router.back();
+      }
       
 
     }
     return (
-      <button id={props.id} disabled={props.disabled} className={multiClass([styles.primaryButton])} onClick={handleClick}>{props.text}</button>
+      <button id={props.id} disabled={props.disabled} className={multiClass([styles.primaryButton, props.loadedClass])} onClick={handleClick}>{props.text}</button>
     )
 }
 
@@ -166,10 +206,19 @@ export class RightTitle extends React.Component {
 
 
 export class ListHolder extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},100)
+  }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
       <div className={multiClass([styles.centered])}>
-        <div className={multiClass(["gridContainer", styles.listHolder, styles.centered])} >
+        <div className={multiClass(["gridContainer", styles.listHolder, styles.centered, loadedClass])} >
           {this.props.children}
         </div>
       </div>
