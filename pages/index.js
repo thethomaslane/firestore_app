@@ -100,7 +100,7 @@ class About extends React.Component {
 class HowToPlay extends React.Component {
   render() {
     let text = "   Every round, a new phony is selected.\n   If you are not the phony, answer the question honsestly. Then, try and figure out who is the phony and vote for them.";
-    text = text + "\n   If your are the phony, you have a different question from everyone else. Answer the question, then try not to get caught in a lie."
+    text = text + "\n   If your are the phony, you have a different question from everyone else. Answer the question, then try not to get caught in a lie. The real question will show up on the Vote screen"
     return (
       <InfoBox title="How to Play" text={text} display={this.props.display} clickFunction={this.props.clickFunction}/>
     )
