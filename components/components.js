@@ -112,6 +112,7 @@ export class PrimaryButton extends React.Component {
 
 
 function PrimaryButtonFunction(props) {
+    let active = false;
     const router = useRouter();
     const handleClick = (e) => {
       if (props.clickFunction){
@@ -173,6 +174,19 @@ export class Select extends React.Component {
     )
   }
 }
+
+export class Checkbox extends React.Component {
+  render() {
+
+    return (
+      <React.Fragment>
+      <label className={multiClass([styles.miniWhiteTextBordered, styles.selectLabel])} htmlFor={this.props.check}>{this.props.checkLabel}</label>
+      <input type="checkbox"  name={this.props.check} id={this.props.check} />
+      </React.Fragment>
+    )
+  }
+}
+
 
 
 

@@ -37,6 +37,7 @@ class GameCreatorButton extends React.Component {
       setCookie("username", username);
       setCookie("pin", pin);
       setCookie("start", "false");
+      setCookie("spectator", "false");
       this.props.connection.send(JSON.stringify({Code: "Open"}));
       this.props.connection.send(JSON.stringify({Code: "Create Game", Game: {Pin: pin, QuestionTime: questionTime, VoteTime: voteTime, NumberOfQuestions: numberOfQuestions},
         Player: {Pin: pin, Name: username, Host: true}}));
