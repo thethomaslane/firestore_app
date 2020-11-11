@@ -16,8 +16,7 @@ export default function Scoreboard(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Score"/>
-    <p className={multiClass([styles.centered, styles.subTitleComp])}>{"Question: " + (props.Game.QuestionsAsked+1) + "/" + (props.Game.NumberOfQuestions)} </p>
+    <comp.SubTitle text="Score" subtext={"Question: " + (props.Game.QuestionsAsked+1) + "/" + (props.Game.NumberOfQuestions)}/>
     <comp.ListHolder next="/winner">
     	<ScoreBoxList players={props.Players} />
     </comp.ListHolder>
@@ -27,10 +26,18 @@ export default function Scoreboard(props) {
 
 
 class UserScoreBox extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {loaded: false}
+  }
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},(150 + (75 * this.props.delay)))
+  }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.userBox, "user", "gridItem", styles.centered])}>
+      <div className={multiClass([styles.userBox, "user", "gridItem", styles.centered, loadedClass])}>
       <style jsx>{`
         .user {
           background-color: ${this.props.color};
@@ -71,7 +78,7 @@ class ScoreBoxList extends React.Component {
     return parseFloat(b.Score) - parseFloat(a.Score);
 });
     const listItems = this.props.players.map((player, index) =>
-      <UserScoreBox key={player.Name} username={player.Name} color={player.Color} score={player.Score} place={places[index]}/>
+      <UserScoreBox key={player.Name} username={player.Name} color={player.Color} score={player.Score} place={places[index]} delay={index}/>
 
     );
     return (

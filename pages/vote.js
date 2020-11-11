@@ -7,11 +7,11 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 
 export default function Vote(props) {
-  let subtext = "Vote out the Phony!";
+  let text = "Vote out the Phony!";
   let disabled = false;
   let selected = "";
   if (props.CurrentPlayer.Name == props.Game.Phony) {
-    subtext = "Don't get caught!"
+    text = "Don't get caught!"
   }
 
   let currentPlayer;
@@ -32,8 +32,7 @@ export default function Vote(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text={subtext}/>
-    <p className={multiClass([styles.centered, styles.noMarginTopBottom, styles.subTitleComp])}>{"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}</p>
+    <comp.SubTitle text={text} subtext={"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}/>
     <VoteListHolder selected={selected} disabled={disabled} userList={props.Players} connection={props.connection} pin={props.Game.Pin} CurrentPlayer={currentPlayer} questionNumber={props.Game.QuestionsAsked} NoSleep={props.NoSleep}/>
     <comp.Timer TotalTime={props.Game.VoteTime} />
     </div>
@@ -89,7 +88,7 @@ class VoteListHolder extends React.Component {
     const users = this.props.userList.map(function (user, index) {
     if (user.Name == currentPlayer) {return null}
     else {
-    return <AnswerBox enabled={!disabled} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
+    return <AnswerBox delay={index} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
   }
 }
   );
@@ -111,13 +110,20 @@ class AnswerBox extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {loaded: false}
+  }
+
+  componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},(50 + (75 * this.props.delay)))
   }
   handleClick(e) {
     this.props.clickHandler(this.props.username);
   }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div onClick={this.handleClick} id={this.props.username} className={multiClass([styles.answerBox, , this.props.disabled && "disabled", "gridItem", this.props.selected==this.props.username && "border"])}>
+      <div onClick={this.handleClick} id={this.props.username} className={multiClass([styles.answerBox, loadedClass, this.props.disabled && "disabled", "gridItem", this.props.selected==this.props.username && "border"])}>
       <style jsx>{`
         .username {
           font-family: Bubblegum Sans;

@@ -23,10 +23,11 @@ export default function Starting(props) {
 class StartingBox extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {time: 5};
+		this.state = {time: 5, loaded: false};
 	}
 
   componentDidMount() {
+    setTimeout(() => {this.setState({loaded: true})},100)
     this.timerID = setInterval(
       () => this.tick(),
       1000
@@ -50,8 +51,10 @@ class StartingBox extends React.Component {
 	    });
 	  }
   render() {
+    let loadedClass = "prescale";
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.winnerBox, styles.centered])}>
+      <div className={multiClass([styles.winnerBox, styles.centered, loadedClass])}>
       <style jsx>{`
         .starting {
           font-family: Bubblegum Sans;
