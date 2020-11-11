@@ -24,6 +24,7 @@ export default function Vote(props) {
     if (disabled) {
       selected = currentPlayer.Vote;
     }
+    if (props.CurrentPlayer.Spectator) {disabled = true}
 
   return (
     <div>

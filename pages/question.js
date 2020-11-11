@@ -36,8 +36,8 @@ export default function Question(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Question"/>
-    <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} />
+    <comp.SubTitle text="Question" subtext={(props.CurrentPlayer.Spectator && "Spectators do not see the question") || null}/>
+    {!props.CurrentPlayer.Spectator  && <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} />}
     <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )

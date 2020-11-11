@@ -29,6 +29,7 @@ class GameJoinerForm extends React.Component {
         <comp.MenuTitle text="Join Game" />
         <comp.Input text="PIN" maxLength="8"/>
         <comp.Input text="Username" maxLength="12"/>
+        <comp.Checkbox check="Spectate" checkLabel="Spectate Only:" />
         <GameJoinerButton  connection={this.props.connection} router={this.props.router}/>
       </comp.MenuBox>
     )
@@ -45,10 +46,21 @@ class GameJoinerButton extends React.Component {
     let validForm = true;
     let username = document.getElementById("Username").value;
     let pin = document.getElementById("PIN").value.toUpperCase().split(" ").join("");
-    if (username.match(/^[a-zA-Z]+$/) && pin.match(/^[a-zA-Z]+$/) && username.length >= 1) {
+    let spectate = document.getElementById("Spectate").checked;
+    console.log(spectate);
+    if (pin.match(/^[a-zA-Z]+$/) && spectate) {
+      setCookie("username", "spectator");
+      setCookie("pin", pin);
+      setCookie("start", "false");
+      setCookie("spectator", "true")
+      this.props.connection.send(JSON.stringify({Code: "Spectate Game", Pin: pin}));
+      this.props.router.push("/play");
+    }
+    else if (username.match(/^[a-zA-Z]+$/) && pin.match(/^[a-zA-Z]+$/) && username.length >= 1) {
       setCookie("username", username);
       setCookie("pin", pin);
       setCookie("start", "false");
+      setCookie("spectator", "false")
       this.props.connection.send(JSON.stringify({Code: "Open"}))
       this.props.connection.send(JSON.stringify({Code: "Join Game", Player: {Pin: pin, Name: username, Host: false}}));
       this.props.router.push("/play");
@@ -58,7 +70,7 @@ class GameJoinerButton extends React.Component {
   
     return (
       <div className={multiClass([styles.centered])} >
-        <comp.PrimaryButton id="GameJoinerButton" text="Join" clickFunction={this.setUsernameAndPin} />
+        <comp.PrimaryButton id="GameJoinerButton" text="Join" clickFunction={this.setUsernameAndPin} disabled={false}/>
       </div>
     )
   }

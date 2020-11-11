@@ -43,9 +43,12 @@ async function checkCookie() {
     var username = getCookie("username");
     var pin = getCookie("pin");
     var started = getCookie("start") == "true";
-    if (username != "" && pin != "" && started) {
-        connection.send(JSON.stringify({Code: "Rejoin Game", Pin: pin, Username: username}));
+    var spectator = getCookie("spectator") == "true";
+    if (username != "" && pin != "" && started && !spectator) {
+      connection.send(JSON.stringify({Code: "Rejoin Game", Pin: pin, Username: username}));
       return true;
+    } else if ( pin != "" && spectator) {
+      connection.send(JSON.stringify({Code: "Spectate Game", Pin: pin}));
     } else {
       return false;
     }
