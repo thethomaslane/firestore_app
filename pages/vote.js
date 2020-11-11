@@ -98,7 +98,7 @@ class VoteListHolder extends React.Component {
           {users}
         </div>
         <div className={multiClass([styles.centered])}>
-          <comp.PrimaryButton className={multiClass([styles.centered])} id="VoteSubmitterButton" text="Submit Vote" clickFunction={this.submitVote} disabled={this.props.disabled}  />
+          <comp.PrimaryButton className={multiClass([styles.centered])} id="VoteSubmitterButton" text="Submit" clickFunction={this.submitVote} disabled={this.props.disabled}  />
         </div>
       </div>
     )

@@ -73,7 +73,7 @@ class QuestionForm extends React.Component {
         <QuestionText question={this.props.question}/>
         <comp.Input text="Answer" maxLength="40" NoSleep={this.props.NoSleep} disabled={this.props.disabled}/>
         <div className={multiClass([styles.centered])}>
-          <comp.PrimaryButton className={multiClass([styles.centered])} id="AnswerSubmitterButton" text="Submit Answer" clickFunction={this.submitAnswer} disabled={this.props.disabled}  />
+          <comp.PrimaryButton className={multiClass([styles.centered])} id="AnswerSubmitterButton" text="Submit" clickFunction={this.submitAnswer} disabled={this.props.disabled}  />
         </div>
       </comp.MenuBox>
      )

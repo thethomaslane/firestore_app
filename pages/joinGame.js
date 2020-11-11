@@ -59,7 +59,7 @@ class GameJoinerButton extends React.Component {
   
     return (
       <div className={multiClass([styles.centered])} >
-        <comp.PrimaryButton id="GameJoinerButton" text="Join Game" clickFunction={this.setUsernameAndPin} />
+        <comp.PrimaryButton id="GameJoinerButton" text="Join" clickFunction={this.setUsernameAndPin} />
       </div>
     )
   }

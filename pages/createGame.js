@@ -48,7 +48,7 @@ class GameCreatorButton extends React.Component {
   render() {
     return (
       <div className={multiClass([styles.paddedTopBottom, styles.centered])} >
-        <comp.PrimaryButton id="GameCreatorButton" text="Create Game" clickFunction={this.setUsernameAndPin}  />
+        <comp.PrimaryButton id="GameCreatorButton" text="Create" clickFunction={this.setUsernameAndPin}  />
       </div>
     )
   }

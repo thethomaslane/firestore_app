@@ -26,7 +26,7 @@ class HomeButton extends React.Component {
   render() {
     return (
       <div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
-        <comp.PrimaryButton id="HomeButton" text="Back to Main Menu" back={true}/>
+        <comp.PrimaryButton id="HomeButton" text="Back" back={true}/>
       </div>
     )
   }
