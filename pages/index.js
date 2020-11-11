@@ -59,7 +59,6 @@ class InfoBox extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    console.log(this.props.title);
     this.state = {loaded: false};
   }
 
@@ -79,7 +78,7 @@ class InfoBox extends React.Component {
     return (
       <div>
         <br />
-        <div onClick={this.handleClick} className={multiClass([styles.underlined, loadedClass])}>
+        <div onClick={this.handleClick} className={multiClass([styles.underlined, loadedClass, styles.infoHover])}>
           <h2 className={multiClass([styles.blackText, styles.noMarginTopBottom, styles.infoHover])}>{this.props.title + arrow}</h2>
         </div>
         <p className={multiClass([styles.underlined, styles.noMarginTopBottom, !this.props.display && styles.hidden])}>{this.props.text}</p>

@@ -37,7 +37,7 @@ export default function Question(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text="Question"/>
-    <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} NoSleep={props.NoSleep}/>
+    <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} />
     <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )
@@ -71,7 +71,7 @@ class QuestionForm extends React.Component {
         <comp.MenuTitle text={this.props.role}/>
         {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>Try to blend in with the enemy!</p>}
         <QuestionText question={this.props.question}/>
-        <comp.Input text="Answer" maxLength="40" NoSleep={this.props.NoSleep} disabled={this.props.disabled}/>
+        <comp.Input text="Answer" maxLength="40" disabled={this.props.disabled}/>
         <div className={multiClass([styles.centered])}>
           <comp.PrimaryButton className={multiClass([styles.centered])} id="AnswerSubmitterButton" text="Submit" clickFunction={this.submitAnswer} disabled={this.props.disabled}  />
         </div>
