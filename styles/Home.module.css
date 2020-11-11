@@ -12,6 +12,7 @@
   height: 2rem;
   position: -webkit-sticky; /* Safari */
   position: sticky;
+  width: 100vw;
   top: 0;
 }
 
@@ -25,6 +26,12 @@
   -webkit-text-stroke-width: .08rem;
   -webkit-text-stroke-color: black;
 
+}
+
+.inline {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .selectLabel {
@@ -51,6 +58,7 @@
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   transform: translateY(-2px);
   transition-duration: 0.4s;
+  transition-delay: 0s;
 }
 
 .miniWhiteTextBordered {
@@ -111,6 +119,29 @@
   width: 99%;
 }
 
+.hidden {
+  display: none;
+}
+
+.underlined {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 3px solid #000000;
+  word-break: normal;
+  white-space: pre-wrap;
+  width: 30rem;
+}
+
+
+.infoHover {
+  cursor: pointer;
+}
+.infoHover:hover {
+  color: #344DA8;
+
+}
+
 .blackText {
   font-family: Bubblegum Sans;
   font-style: normal;
@@ -127,21 +158,21 @@
 
 
 .menuBox {
-  margin-top: 5em;
+  margin-top: 3rem;
   border: 5px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  min-height: 18em;
+  min-height: 5rem;
   width: 90vw;
   margin-left: auto;
   margin-right: auto;
   padding: 1em;
   
-  max-width: 500px;
+  max-width: 25rem;
 }
 
 .primaryButton {
-  height: 2em;
-  width: 10em;
+  height: 3rem;
+  width: 10rem;
   border: 2px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;

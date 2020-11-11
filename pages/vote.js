@@ -33,7 +33,7 @@ export default function Vote(props) {
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
     <comp.SubTitle text={text} subtext={"Question: " + props.Game.Questions[props.Game.QuestionsAsked].Text}/>
-    <VoteListHolder selected={selected} disabled={disabled} userList={props.Players} connection={props.connection} pin={props.Game.Pin} CurrentPlayer={currentPlayer} questionNumber={props.Game.QuestionsAsked} NoSleep={props.NoSleep}/>
+    <VoteListHolder selected={selected} disabled={disabled} userList={props.Players} connection={props.connection} pin={props.Game.Pin} CurrentPlayer={currentPlayer} questionNumber={props.Game.QuestionsAsked} />
     <comp.Timer TotalTime={props.Game.VoteTime} />
     </div>
   )
@@ -58,7 +58,6 @@ class VoteListHolder extends React.Component {
   onSelect(username) {
     if (!this.props.disabled) {
       this.setState({selected: username});
-      this.props.NoSleep.enable();
     }
   }
 
@@ -98,7 +97,7 @@ class VoteListHolder extends React.Component {
           {users}
         </div>
         <div className={multiClass([styles.centered])}>
-          <comp.PrimaryButton className={multiClass([styles.centered])} id="VoteSubmitterButton" text="Submit Vote" clickFunction={this.submitVote} disabled={this.props.disabled}  />
+          <comp.PrimaryButton className={multiClass([styles.centered])} id="VoteSubmitterButton" text="Submit" clickFunction={this.submitVote} disabled={this.props.disabled}  />
         </div>
       </div>
     )
