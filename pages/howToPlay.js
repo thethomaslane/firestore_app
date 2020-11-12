@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <div>
-     <comp.Background />
+     <comp.Background overlay="rgba(256,256,256,.5)"/>
       <comp.Header>
         <comp.Title text="Phrenemies!" />
       </comp.Header>
@@ -27,7 +27,7 @@ export default function Home() {
       <comp.ArticleSection title="Scoring Points" text={"   As the Phony, if you trick someone into voting for someone else, you will score points."
       +"\n   Otherwise, you score points by correctly guessing who the Phony was."} />
       <comp.ArticleSection title="Winning a Game" text={"   As you might have guessed, the winner is the player with the most points at the end of the game"
-      +"\n❤︎ But, everyone is a winner if you had fun! ❤︎"} />
+      +"\n❤︎ But, everyone's a winner if you had fun! ❤︎"} />
       <div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
         <Link href="/"><a><comp.PrimaryButton id="HomeButton" text="Home"/></a></Link>
       </div>

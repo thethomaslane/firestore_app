@@ -17,13 +17,73 @@
   top: 0;
 }
 
-.Article{
+.bordered {
+  transition-duration: 0.25s;
+    border-radius: 3px;
+  border: 5px solid rgba(0,0,0,1);
+  margin: 0.5rem;
+  background-color: rgba(256,256,256,.5);
+  padding: 0.25rem;
+}
+
+.inlineBlog{
+  position: relative;
+  display: inline;
+  width: 100%;
+  margin: 0;
+}
+
+.bordered:hover {
+  transition-delay: 0s;
+  transition-duration: 0.25s;
+  background-color: rgba(256,256,256,.75); 
+  color: black;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  transform: translate(-2px, -4px);
+}
+
+.bordered:active {
+  transition-delay: 0s;
+  background-color: rgba(200,200,200,.75);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.article{
   margin-left: auto;
   margin-right: auto;
   width: 30rem;
   word-break: normal;
   white-space: pre-wrap;
 }
+
+.articleText{
+  margin-left: auto;
+  margin-right: auto;
+  width: 29rem;
+  word-break: normal;
+  white-space: pre-wrap;
+}
+
+.blogButton{
+  border-radius: 3px;
+  border: 3px solid rgba(0,0,0,1);
+  margin-left: auto;
+  margin-right: auto;
+  width: 5rem;
+  word-break: normal;
+  white-space: pre-wrap;
+  display: inline;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.blogButton:hover {
+  color: #344DA8;
+  border-color: #344DA8;
+
+}
+
 .whiteTextBordered {
   font-family: Bubblegum Sans;
   font-style: normal;
@@ -34,6 +94,17 @@
   -webkit-text-stroke-width: .08rem;
   -webkit-text-stroke-color: black;
 
+}
+
+.discord {
+  width: 10rem;
+  transition-duration: 0.25s;
+}
+
+.discord:hover{
+  transition-duration: 0.25s;
+  transform: translate(-2px, -4px);
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .inline {
@@ -179,6 +250,7 @@
 }
 
 .primaryButton {
+  transition-duration: 0.25s;
   height: 3rem;
   width: 10rem;
   border: 2px solid #000000;
@@ -189,6 +261,7 @@
 }
 
 .primaryButton:hover:enabled {
+  transition-duration: 0.5s;
   transition-delay: 0s;
   background-color: #FFFFFF; 
   color: black;
