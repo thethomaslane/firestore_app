@@ -81,7 +81,7 @@ class InfoBox extends React.Component {
         <div onClick={this.handleClick} className={multiClass([styles.underlined, loadedClass, styles.infoHover])}>
           <h2 className={multiClass([styles.blackText, styles.noMarginTopBottom, styles.infoHover])}>{this.props.title + arrow}</h2>
         </div>
-        <p className={multiClass([styles.underlined, styles.noMarginTopBottom, !this.props.display && styles.hidden])}>{this.props.text}</p>
+        <p className={multiClass([styles.underlined, styles.noMarginTopBottom, !this.props.display && styles.hidden])}>{this.props.text}<Link  href={this.props.link}><a className={multiClass([styles.infoHover])}> More▸</a></Link></p>
       </div>
     )
   }
@@ -92,17 +92,18 @@ class About extends React.Component {
   render() {
     let text = "   This is a game where you try and guess whch of your friends are lying. \n   Grab some friends and try and find the phony."
     return (
-      <InfoBox title="About" text={text} display={this.props.display} clickFunction={this.props.clickFunction}/>
+      <InfoBox title="About" text={text} display={this.props.display} clickFunction={this.props.clickFunction} link={"/about"}/>
     )
   }
 }
 
 class HowToPlay extends React.Component {
   render() {
-    let text = "   Every round, a new phony is selected.\n   If you are not the phony, answer the question honsestly. Then, try and figure out who is the phony and vote for them.";
-    text = text + "\n   If your are the phony, you have a different question from everyone else. Answer the question, then try not to get caught in a lie. The real question will show up on the Vote screen"
+    let text = "   Every round, a new phony is selected,\n   If you are not the phony, answer the question honsestly. Then, try and figure out who is the phony and vote for them.";
+    text = text + "\n   If your are the phony, you have a different question from everyone else. Answer the question, then try not to get caught in a lie. The real question will show up on the Vote screen."
+    text= text
     return (
-      <InfoBox title="How to Play" text={text} display={this.props.display} clickFunction={this.props.clickFunction}/>
+      <InfoBox title="How to Play" text={text} display={this.props.display} clickFunction={this.props.clickFunction} link={"/howToPlay"}/>
     )
   }
 }

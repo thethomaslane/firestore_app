@@ -10,12 +10,20 @@
 .header {
   background-color: #344DA8;
   height: 2rem;
+  z-index: 100;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   width: 100vw;
   top: 0;
 }
 
+.Article{
+  margin-left: auto;
+  margin-right: auto;
+  width: 30rem;
+  word-break: normal;
+  white-space: pre-wrap;
+}
 .whiteTextBordered {
   font-family: Bubblegum Sans;
   font-style: normal;
