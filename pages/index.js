@@ -81,7 +81,7 @@ class InfoBox extends React.Component {
         <div onClick={this.handleClick} className={multiClass([styles.underlined, loadedClass, styles.infoHover])}>
           <h2 className={multiClass([styles.blackText, styles.noMarginTopBottom, styles.infoHover])}>{this.props.title + arrow}</h2>
         </div>
-        <p className={multiClass([styles.underlined, styles.noMarginTopBottom, !this.props.display && styles.hidden])}>{this.props.text}<Link  href={this.props.link}><a className={multiClass([styles.infoHover])}> More▸</a></Link></p>
+        <p className={multiClass([styles.underlined, styles.noMarginTopBottom, !this.props.display && styles.hidden])}>{this.props.text}<br /><Link  href={this.props.link}><a className={multiClass([styles.blogButton])}>More▸</a></Link></p>
       </div>
     )
   }

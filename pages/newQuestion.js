@@ -26,8 +26,10 @@ class GameJoinerForm extends React.Component {
     return (
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text="Submit a Question" />
-        <comp.Input text="Normal Text" />
-        <comp.Input text="Imposter Text" />
+        <comp.Input text="Question 1" />
+        <comp.Input text="Question 2" />
+        <comp.Input text="Question 3" />
+        <comp.Input text="Question 4" />
         <QuestionSubmitterButton  connection={this.props.connection}/>
       </comp.MenuBox>
     )
@@ -42,9 +44,11 @@ class QuestionSubmitterButton extends React.Component {
   }
 
   newQuestion() {
-    let NormalText = document.getElementById("Normal Text").value;
-    let QuestionText = document.getElementById("Imposter Text").value;
-    this.props.connection.send(JSON.stringify({Code: "New Question", Title: NormalText, AltTitle: QuestionText}));
+    let Q1 = document.getElementById("Question 1").value;
+    let Q2 = document.getElementById("Question 2").value;
+    let Q3 = document.getElementById("Question 3").value;
+    let Q4 = document.getElementById("Question 4").value;
+    this.props.connection.send(JSON.stringify({Code: "New Question", Questions : [Q1, Q2, Q3, Q4]}));
     Router.reload(window.location.pathname);
   }
 
@@ -52,7 +56,7 @@ class QuestionSubmitterButton extends React.Component {
   
     return (
       <div className={multiClass([styles.centered])} >
-        <comp.PrimaryButton id="QuestionSubmitterButton" text="Submit Question" clickFunction={this.newQuestion} />
+        <comp.PrimaryButton id="QuestionSubmitterButton" text="Submit" clickFunction={this.newQuestion} />
       </div>
     )
   }

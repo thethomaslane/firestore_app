@@ -304,9 +304,9 @@ export class ArticleSection extends React.Component {
     let loadedClass = "prescale";
     if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.Article, loadedClass])}>
+      <div className={multiClass([styles.article, loadedClass])}>
         <h3 className={multiClass([styles.blackText])}>{this.props.title}</h3>
-        <p className={multiClass([styles.Article])}>{this.props.text}</p>
+        <p className={multiClass([styles.articleText])}>{this.props.text}</p>
       </div>
 
     )
