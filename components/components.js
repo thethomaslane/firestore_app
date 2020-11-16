@@ -329,6 +329,7 @@ export class PhrenemiesHeader extends React.Component {
                   `,
             }}
           ></script>
+        <script data-ad-client="ca-pub-5915812167551366" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
