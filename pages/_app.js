@@ -76,7 +76,7 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 const socketServer = process.env.NEXT_PUBLIC_SOCKET_SERVER;
 const connection = new W3CWebSocket(socketServer);
 
-let GameState = {Pin: "", GameState: "setup", ErrorMessage: null, newQuestion: {AltTitle: "waiting", Title: "waiting"} };
+let GameState = {Pin: "", GameState: "setup", ErrorMessage: null, newQuestion: {Questions: ["waiting", "waiting", "waiting", "waiting"]} };
 let GamePlayers = [];
 let CurrentPlayer = {Host: false};
 

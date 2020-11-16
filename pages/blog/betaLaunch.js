@@ -25,7 +25,7 @@ export default function betaLaunch() {
       		<a href="https://discord.gg/Kn69mguEck" ><img  src="/Discord-Logo+Wordmark-Black.svg" /></a>
       	</div>
       	<div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
-        	<Link href="/"><a><comp.PrimaryButton id="HomeButton" text="Home"/></a></Link>
+        	<Link href="/blog"><a><comp.PrimaryButton id="BlogHomeButton" text="Back"/></a></Link>
       	</div>
     </div>
   )

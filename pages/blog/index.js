@@ -12,8 +12,8 @@ export default function Home() {
       </comp.Header>
       <br />
       <comp.SubTitle text="Blog Posts" />
-      	<BlogLink link="/blog/betaLaunch" title="Phrenemies Launches Beta" text={"   Learn more about why this game was created."} />
-      	<BlogLink link="/blog/writeQuestions" title="Help Phrenemies by Writing Questions" text={"   Writing questions for this game is very difficult and time consuming."
+      	<BlogLink link="/blog/betaLaunch" title="Phrenemies! Launches Beta" text={"   Learn more about why this game was created."} />
+      	<BlogLink link="/blog/writeQuestions" title="Help Phrenemies! by Writing Questions" text={"   Writing questions for this game is very difficult and time consuming."
       	+" You can help by writing questions and you may see your question in a future game!" }/>
       	<BlogLink link="/blog/thirdPost" title="Currently All Proceeds Going to Charity" text={"   All ad revenue is going to be donated to charity. Read more about where the money is going."} />
       	<div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >

@@ -14,23 +14,25 @@ export default function CheckQuestion(props) {
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-      <GameJoinerForm question={props.Game.newQuestion} connection={props.connection} phonyText={props.Game.newQuestion.AltTitle} normalText={props.Game.newQuestion.Title} />
+      <QuestionAcceptorForm question={props.Game.newQuestion} connection={props.connection}  />
     </div>
   )
 }
 
   
 
-class GameJoinerForm extends React.Component {
+class QuestionAcceptorForm extends React.Component {
 	componentDidMount() {
 		setTimeout(() => {this.props.connection.send(JSON.stringify({Code: "Get New Question"}))}, 1000);
 	}
   render() {
     return (
       <comp.MenuBox color="#344DA8">
-        <comp.MenuTitle text="Submit a Question" />
-        <h2 className={styles.whiteTextBordered}>{"Normal Text: " + this.props.normalText}</h2>
-        <h2  className={styles.whiteTextBordered}>{"Phony Text: " + this.props.phonyText}</h2>
+        <comp.MenuTitle text="Question" />
+        <h2 className={styles.whiteTextBordered}>{"Question 1: " + this.props.question.Questions[0]}</h2>
+        <h2 className={styles.whiteTextBordered}>{"Question 2: " + this.props.question.Questions[1]}</h2>
+        <h2 className={styles.whiteTextBordered}>{"Question 3: " + this.props.question.Questions[2]}</h2>
+        <h2 className={styles.whiteTextBordered}>{"Question 4: " + this.props.question.Questions[3]}</h2>
         <QuestionApproverButton question={this.props.question} connection={this.props.connection}/>
         <QuestionRejectorButton  question={this.props.question} connection={this.props.connection}/>
       </comp.MenuBox>
