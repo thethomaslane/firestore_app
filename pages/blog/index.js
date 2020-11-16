@@ -11,11 +11,11 @@ export default function Home() {
         <comp.Title text="Phrenemies!" />
       </comp.Header>
       <br />
-      <comp.SubTitle text="Blog Posts" />
+      <comp.SubTitle text="Blog Posts" subtext="Click on any of the posts to read the full article."/>
       	<BlogLink link="/blog/betaLaunch" title="Phrenemies! Launches Beta" text={"   Learn more about why this game was created."} />
       	<BlogLink link="/blog/writeQuestions" title="Help Phrenemies! by Writing Questions" text={"   Writing questions for this game is very difficult and time consuming."
       	+" You can help by writing questions and you may see your question in a future game!" }/>
-      	<BlogLink link="/blog/thirdPost" title="Currently All Proceeds Going to Charity" text={"   All ad revenue is going to be donated to charity. Read more about where the money is going."} />
+      	<BlogLink link="/blog/charityDonations" title="Currently All Proceeds Going to Charity" text={"   All revenue that is raised during beta is going to be donated to charity, specifically to Santa Barbara County Food Bank to help provide meals for those in need this Holiday Season. Read more about where the money is going."} />
       	<div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
         	<Link href="/"><a><comp.PrimaryButton id="HomeButton" text="Home"/></a></Link>
       	</div>
