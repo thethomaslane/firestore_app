@@ -18,29 +18,27 @@ import starting from "./starting.js"
 
 class MyApp extends App {
 
+  // Initializes state to prevent errors if data is not recieved
 	constructor(props) {
     	super(props);
     	this.state = {Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: "waiting", ErrorMessage: null};
-      this.resetState = this.resetState.bind(this);
-      
-        
-
+      this.resetState = this.resetState.bind(this);   
 	}
-    resetState() {
-        GamePlayers = GamePlayers.sort(function(a, b) {
-            parseFloat(a.Score) - parseFloat(b.Score);
-        });
-        this.setState({Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: GameState.GameState, ErrorMessage: GameState.ErrorMessage});
-    }
 
-    componentDidMount() {
+  // Sets state based on state from server
+  resetState() {
+    this.setState({Game: GameState, Players: GamePlayers, CurrentPlayer: CurrentPlayer, PreviousState: GameState.GameState, ErrorMessage: GameState.ErrorMessage});
+  }
+
+  // Attaches Listeners so that the app will reset state when an update is receieved
+  componentDidMount() {
         comp = ReactDOM.findDOMNode(this);
         comp.addEventListener("recieveGame", this.handleRecieveGame);
         comp.addEventListener("recievePlayers", this.handleRecievePlayers);
 
-    }
+  }
 
-    handleRecieveGame = (event) => {
+  handleRecieveGame = (event) => {
     this.resetState();
   }
 
@@ -49,11 +47,15 @@ class MyApp extends App {
   }
 
 	render() {
+      // Change component in Game Loop without loosing state
     	let { Component, pageProps } = this.props;
         if (this.state.Game.GameState != "setup") {
+            // Component is selected from ComponentMap based on GameState
             Component = ComponentMap[GameState.GameState];
         }
 
+      // Adds props that can be accessed by all components
+      // connection is the websocket connection that is used to communicate with the server
     	return (
         <React.Fragment>
           <components.PhrenemiesHeader />
@@ -70,25 +72,34 @@ export default MyApp;
 
 let comp;
 
+// Used to pick component based on state
 const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
 
+// Sets up socket connection using environment variable
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 const socketServer = process.env.NEXT_PUBLIC_SOCKET_SERVER;
 const connection = new W3CWebSocket(socketServer);
 
+// Initialize state to prevent errors
 let GameState = {Pin: "", GameState: "setup", ErrorMessage: null, newQuestion: {Questions: ["waiting", "waiting", "waiting", "waiting"]} };
 let GamePlayers = [];
 let CurrentPlayer = {Host: false};
 
+
+// Open Connection
 connection.onopen = () => {
 
   connection.send(JSON.stringify({Code: "Open"}));
 }
 
+// Log error
+//TODO: add an event that casues an alert to pop up
 connection.onerror = (error) => {
   console.log("You have lost connection to the server, try refreshing.");
 }
 
+// Handle messages recieved
+// In general, update state and dispatch event to reset App State
 connection.onmessage =  (e) => {
 
   var data = JSON.parse(e.data);

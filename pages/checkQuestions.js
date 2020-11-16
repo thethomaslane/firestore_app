@@ -20,7 +20,7 @@ export default function CheckQuestion(props) {
 }
 
   
-
+// Show Newest questions from "New Question" Collection
 class QuestionAcceptorForm extends React.Component {
 	componentDidMount() {
 		setTimeout(() => {this.props.connection.send(JSON.stringify({Code: "Get New Question"}))}, 1000);
@@ -40,7 +40,7 @@ class QuestionAcceptorForm extends React.Component {
   }
 }
 
-
+// Send message for Server to approve question
 class QuestionApproverButton extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +62,7 @@ class QuestionApproverButton extends React.Component {
   }
 }
 
+// Send message for Server to reject question
 class QuestionRejectorButton extends React.Component {
   constructor(props) {
     super(props);

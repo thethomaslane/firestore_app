@@ -1,16 +1,12 @@
-import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
-import { useRouter } from 'next/router'
-import { useEffect } from 'react';
 
 
 export default function Scoreboard(props) {
 
   return (
-    <div>
+  <div>
    <comp.Background />
     <comp.Header>
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
@@ -24,12 +20,14 @@ export default function Scoreboard(props) {
   )
 }
 
-
+// Score box
 class UserScoreBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {loaded: false}
   }
+
+  // delayed based on which place the user is in
   componentDidMount() {
     setTimeout(() => {this.setState({loaded: true})},(150 + (75 * this.props.delay)))
   }
@@ -69,11 +67,13 @@ class UserScoreBox extends React.Component {
 
 
 
-
+// returns a list of Score Boxes
 class ScoreBoxList extends React.Component {
   
   render() {
-    let places = ["1st.", "2nd.", "3rd.", "4th."];
+    let places = ["1st.", "2nd.", "3rd.", "4th.", "5th.", "6th." , "7th.", "8th.", "9th." ,"10th.", "11th.", "12th." ,"13th.", "14th.", "15th." ,"16th.", "17th.", "18th." ,"19th.", "20th."];
+    
+    // Sorts players based on score
     let players = this.props.players.sort(function(a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
 });
