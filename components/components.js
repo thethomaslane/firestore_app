@@ -139,10 +139,7 @@ function PrimaryButtonFunction(props) {
 
 // Allows user to input text. Can be disabled, can have limits on input length
 export class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
+
   render() {
     return (
       <div className={multiClass([styles.paddedTopBottom])}>
