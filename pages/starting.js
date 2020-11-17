@@ -19,13 +19,14 @@ export default function Starting(props) {
 }
 
 
-
+// Displays a 5 second timer
 class StartingBox extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {time: 5, loaded: false};
 	}
 
+  // Starts a 5 second timer
   componentDidMount() {
     setTimeout(() => {this.setState({loaded: true})},100)
     this.timerID = setInterval(
@@ -34,10 +35,12 @@ class StartingBox extends React.Component {
     );
   }
 
+  // Clear Interval
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
 
+  // tick the timer
 	tick() {
 	    let newTime;
 	    let oldTime = this.state.time;
@@ -50,6 +53,7 @@ class StartingBox extends React.Component {
 	      time: newTime
 	    });
 	  }
+
   render() {
     let loadedClass = "prescale";
     if (this.state.loaded) {loadedClass = "scalein"}
@@ -78,12 +82,14 @@ class StartingBox extends React.Component {
   }
 }
 
+// Cancels the start
 class CancelButton extends React.Component {
 	constructor(props) {
 		super(props);
 		this.cancel = this.cancel.bind(this);
 	}
 
+  // Sends the cancel message to the server
 	cancel() {
 		this.props.connection.send(JSON.stringify({Code: "Cancel Start", Pin: this.props.pin}));
 	}
