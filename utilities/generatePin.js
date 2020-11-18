@@ -1,3 +1,4 @@
+// Creates an 8 character Pin that alternates between Consonants and Vowels (BACEDIFO)
 export default function generatePin() {
 	let consonants = ['B','C','D','F','G','H','J','K','L','M','N', 'P','R','S','T','V','W','X','Y','Z'];
 	let vowels = ['A','E','I','O','U']

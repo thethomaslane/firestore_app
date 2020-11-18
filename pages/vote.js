@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 
 export default function Vote(props) {
+  
+  // Changes the Subtitle based on the players role (Phony or Friend)
   let text = "Vote out the Phony!";
   let disabled = false;
   let selected = "";
@@ -14,6 +16,7 @@ export default function Vote(props) {
     text = "Don't get caught!"
   }
 
+  // Get current player, and check if they have voted. If they have, or if they are spectators, disable the selection
   let currentPlayer;
   for (var i = props.Players.length - 1; i >= 0; i--) {
     if (props.Players[i].Name == props.CurrentPlayer.Name) {currentPlayer = props.Players[i]}
@@ -43,7 +46,7 @@ export async function getServerSideProps() {}
 
 
 
-
+// Holds all the answers and allows users to select and vote
 class VoteListHolder extends React.Component {
 
   constructor(props) {
@@ -56,12 +59,14 @@ class VoteListHolder extends React.Component {
     setTimeout(() => {this.checkVote()}, 500);
   }
 
+  // Changes the selection
   onSelect(username) {
     if (!this.props.disabled) {
       this.setState({selected: username});
     }
   }
 
+  // Check vote after mounting
   checkVote() {
     this.setState({selected: this.props.selected});
   }
@@ -71,6 +76,8 @@ class VoteListHolder extends React.Component {
     this.submitVote();
   }
 
+  // Vote is submitted if user presses submit or component unmounts
+  // as long as component isn't disabled
   submitVote() {
     if (!this.props.disabled && this.state.selected != "") {
       this.props.connection.send(JSON.stringify({Code: "Submit Vote", Pin: this.props.pin, Vote: this.state.selected,
@@ -78,6 +85,8 @@ class VoteListHolder extends React.Component {
     }
 
   }
+
+  // map the users to AnswerBoxs
   render() {
     let currentPlayer = "";
     try {currentPlayer = this.props.CurrentPlayer.Name;} catch {}
@@ -106,6 +115,7 @@ class VoteListHolder extends React.Component {
 }
 
 
+// Displays a single answer box
 class AnswerBox extends React.Component {
   constructor(props) {
     super(props);

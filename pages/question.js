@@ -10,6 +10,8 @@ export default function Question(props) {
   let questionText;
   let role;
   let disabled = 1;
+
+  // Checks if the player is the phony, and changes the Menu Title
   if (props.CurrentPlayer.Name == props.Game.Phony) {
     questionText = props.Game.Questions[props.Game.QuestionsAsked].AltText;
     role = "Phony!"
@@ -18,6 +20,8 @@ export default function Question(props) {
     role = "Friend"
 
   }
+
+  // Gets current player and sees if they submitted an answer for this question. If they have, prefills the input and disables
     let currentPlayer;
     for (var i = props.Players.length - 1; i >= 0; i--) {
       if (props.Players[i].Name == props.CurrentPlayer.Name) {currentPlayer = props.Players[i]}
@@ -25,9 +29,10 @@ export default function Question(props) {
   
     try {disabled = (currentPlayer.LastQuestionAnswered == props.Game.QuestionsAsked);} catch { disabled = false}
     if (disabled) {
-      console.log("check")
       document.getElementById("Answer").value = currentPlayer.Answer;
     }
+
+    // If Current Player is a spectator, don't show the question form
   return (
     <div>
 
@@ -43,8 +48,10 @@ export default function Question(props) {
   )
 }
 
+// This is needed, otherwise build fails
  export async function getServerSideProps() {}
 
+// Submits the answer when user presses submit or the component unmounts
 class QuestionForm extends React.Component {
   constructor(props) {
       super(props);
@@ -56,7 +63,7 @@ class QuestionForm extends React.Component {
     this.submitAnswer();
   }
 
-
+  // checks if the component is disabled (user already answered)
   submitAnswer() {
     let answer = document.getElementById("Answer").value;
     if(!this.props.disabled && answer != "") {

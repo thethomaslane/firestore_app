@@ -23,7 +23,7 @@ export default function WaitForPlayers(props) {
   )
 }
 
-
+// Displays a single username box
 class UsernameBox extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +58,7 @@ class UsernameBox extends React.Component {
   }
 }
 
-
+// Displays a UsernameBox for all users in the game
 class UsernameBoxList extends React.Component {
 
   componentDidMount() {
@@ -76,6 +76,9 @@ class UsernameBoxList extends React.Component {
     )
   }
 }
+
+// Sends the start command to the server
+// Only selectable by Host (Player who created the game)
 class GameStarterButton extends React.Component {
   constructor(props) {
     super(props);
