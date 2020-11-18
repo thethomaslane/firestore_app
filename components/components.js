@@ -293,18 +293,9 @@ export class Timer extends React.Component {
 }
 
 export class ArticleSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {loaded: false}
-  }
-  componentDidMount() {
-    setTimeout(() => {this.setState({loaded: true})},100)
-  }
   render() {
-    let loadedClass = "prescale";
-    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.article, loadedClass])}>
+      <div className={multiClass([styles.article])}>
         <h3 className={multiClass([styles.blackText])}>{this.props.title}</h3>
         <p className={multiClass([styles.articleText])}>{this.props.text}</p>
       </div>

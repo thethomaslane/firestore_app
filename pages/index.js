@@ -31,12 +31,16 @@ class MainMenuForm extends React.Component {
     )
   }
 }
-
+ 
 class InfoHolder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {displayAbout: false, displayHow: false};
+    this.state = {displayAbout: true, displayHow: true};
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    setTimeout(() => {this.setState({displayAbout : false, displayHow: false})},1);
   }
 
   handleChange(name) {
