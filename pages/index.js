@@ -33,18 +33,26 @@ class MainMenuForm extends React.Component {
 }
 
 // Controls the display of the About and How to Play Sections
+
 class InfoHolder extends React.Component {
 
   // initialize and don't show either
   constructor(props) {
     super(props);
-    this.state = {displayAbout: false, displayHow: false};
+    this.state = {displayAbout: true, displayHow: true};
     this.handleChange = this.handleChange.bind(this);
   }
+
+
+  componentDidMount() {
+    setTimeout(() => {this.setState({displayAbout : false, displayHow: false})},1);
+  }
+
 
   // this function gets passed to the About comp and the How To Play Comp
   // Only one can be displayed at a time, and it should be the last one clicked.
   // None can be displayed as well
+
   handleChange(name) {
     if (name == "About" && !this.state.displayAbout) {this.setState({displayAbout: true, displayHow: false})}
     else if (name == "About" && this.state.displayAbout) {this.setState({displayAbout: false, displayHow: false})}

@@ -24,20 +24,12 @@ export default function Home() {
 }
 
 
-export class BlogLink extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {loaded: false}
-  }
-  componentDidMount() {
-    setTimeout(() => {this.setState({loaded: true})},100)
-  }
+class BlogLink extends React.Component {
+
   render() {
-    let loadedClass = "prescale";
-    if (this.state.loaded) {loadedClass = "scalein"}
     return (
     
-      <div className={multiClass([styles.article, loadedClass, styles.bordered])}>
+      <div className={multiClass([styles.article, styles.bordered])}>
       	<Link href={this.props.link}><a>
       		<div className={multiClass([styles.inlineBlog])}>
 		        <h3 className={multiClass([styles.blackText ])}>{this.props.title}</h3>
