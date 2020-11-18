@@ -14,7 +14,7 @@ export default function newQuestion(props) {
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-      <GameJoinerForm connection={props.connection} />
+      <NewQuestionSubmitterForm connection={props.connection} />
     </div>
   )
 }
