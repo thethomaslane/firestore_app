@@ -20,10 +20,14 @@ export default function Phony(props) {
   )
 }
 
+// This is needed for now, otherwise build fails
 export async function getServerSideProps() {}
- 
+
+// Displays list of phonies. Currently game only supports one phony 
 function PhonyList(props) {
   let questionNumber = props.questionNumber;
+
+  // creates the phony list
   const listItems = props.players.map(function(player, index) {
       if (player.LastQuestionAnswered != questionNumber) {player.Answer = "Failed to Answer"}
       if (player.Name == props.phony) {
@@ -34,6 +38,7 @@ function PhonyList(props) {
   return listItems;
   }
 
+// Displays a single phony
 class PhonyBox extends React.Component {
   constructor(props) {
     super(props);
@@ -68,16 +73,6 @@ class PhonyBox extends React.Component {
       <p className={multiClass([styles.noMarginTopBottom])}>{this.props.answer}</p>
       </div>
 
-    )
-  }
-}
-
-class HomeButton extends React.Component {
-  render() {
-    return (
-      <div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
-        <a href="/"><comp.PrimaryButton id="HomeButton" text="Play Again" /></a>
-      </div>
     )
   }
 }

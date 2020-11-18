@@ -4,8 +4,10 @@ import * as comp from "../components/components.js"
 import Link from 'next/link'
 import { useEffect } from 'react';
 
+
 export default function Home(props) {
 
+// Deletes the game when this page is reached
 useEffect(() => {
   if (props.CurrentPlayer.Host) {
     setTimeout(() => {props.connection.send(JSON.stringify({Code: "Delete Game", Pin: props.Game.Pin}))}, 2000);
@@ -13,6 +15,7 @@ useEffect(() => {
   setTimeout(() => {props.connection.send(JSON.stringify({Code: "Close Connection"}))}, 2000);
   });
 
+  // sort players by score (Highest Score First)
   let players = props.Players.sort(function(a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
 });
@@ -30,9 +33,15 @@ useEffect(() => {
     </div>
   )
 }
+
+// This is needed, otherwise, build fails
 export async function getServerSideProps() {}
  
+// Displays Winners
 function WinnerList(props) {
+
+  // Get the score of the first player (players sorted by score)
+  // That player and any player with the same score will be displayed
   let highScore = props.players[0].Score;
   const listItems = props.players.map(function(player, index) {
       if (player.Score == highScore) {
@@ -43,6 +52,7 @@ function WinnerList(props) {
   return listItems;
   }
 
+// Displays a single winner box
 class WinnerBox extends React.Component {
   constructor(props) {
     super(props);

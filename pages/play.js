@@ -3,13 +3,16 @@ import multiClass from '../utilities/multiClass.js'
 import styles from '../styles/Home.module.css'
 import  { useEffect } from 'react';
 
+// waiting page before player gets into game
 export default function Play(props) {
 
+  // This prevents an error that happens if user refreshes
   useEffect(() => {
     connection = props.connection;
     init();
   });
 
+  // If the app recieves an error it is dispalayed in the subtitle
   return (
     <div>
      <comp.Background />
@@ -22,6 +25,8 @@ export default function Play(props) {
     </div>
   )
 }
+
+
 class HomeButton extends React.Component {
   render() {
     return (
@@ -33,10 +38,13 @@ class HomeButton extends React.Component {
 }
 
 let connection;
+
+// Gets user back into game if they refresh
 function init() {
   checkCookie();
 }
 
+// Checks if they have cookies that let them back into the game
 async function checkCookie() {
   setTimeout(keepGoing, 1000);
   function keepGoing() {
@@ -55,6 +63,7 @@ async function checkCookie() {
   }
 }
 
+// Helper function, got this from W3schools.com
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);

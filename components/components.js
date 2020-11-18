@@ -4,7 +4,7 @@ import multiClass from '../utilities/multiClass.js'
 import { useRouter } from 'next/router'
 
 
-
+// Displays the Paper backgrond, Can have an overlay that improves contrast for text directly on background
 export class Background extends React.Component {
   render() {
     return (
@@ -24,7 +24,7 @@ export class Background extends React.Component {
 }
 
 
-
+// Shows Title in Top Middle of Header ("Phrenemies!")
 export class Title extends React.Component {
   render() {
     return (
@@ -34,7 +34,7 @@ export class Title extends React.Component {
 }
 
 
-
+// Shows SubTitle and Subtext below Header (Subtitle: "Vote", Subtext: "Question: Who are you?")
 export class SubTitle extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +55,7 @@ export class SubTitle extends React.Component {
   }
 }
 
-
+// Full screen length, sticky header. Holds titles
 export class Header extends React.Component {  
   render() {
     return (
@@ -68,7 +68,7 @@ export class Header extends React.Component {
 }
 
 
-
+// A blue box that can hold elements
 export class MenuBox extends React.Component {
     constructor(props) {
     super(props);
@@ -93,6 +93,7 @@ export class MenuBox extends React.Component {
   }
 }
 
+// Component Wrapper for functional component, needed to animate properly
 export class PrimaryButton extends React.Component {
   constructor(props) {
     super(props);
@@ -110,10 +111,12 @@ export class PrimaryButton extends React.Component {
   }
 }
 
-
+// Functional Button Component, needed for useRouter()
 function PrimaryButtonFunction(props) {
-    let active = false;
+
     const router = useRouter();
+
+    // Button can execute arbitrary function, move to a new page, or go back to previous page
     const handleClick = (e) => {
       if (props.clickFunction){
         props.clickFunction();
@@ -126,6 +129,7 @@ function PrimaryButtonFunction(props) {
       }
       
 
+      // Buton can be disabled by setting a prop
     }
     return (
       <button id={props.id} disabled={props.disabled} className={multiClass([styles.primaryButton, props.loadedClass])} onClick={handleClick}>{props.text}</button>
@@ -133,17 +137,9 @@ function PrimaryButtonFunction(props) {
 }
 
 
-
+// Allows user to input text. Can be disabled, can have limits on input length
 export class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange() {
-    if (this.props.NoSleep) {
-      this.props.NoSleep.enable();
-    }
-  }
+
   render() {
     return (
       <div className={multiClass([styles.paddedTopBottom])}>
@@ -157,7 +153,7 @@ export class Input extends React.Component {
 }
 
 
-
+// Crreates a select input, used on Join Game
 export class Select extends React.Component {
   render() {
     const Options = this.props.Options.map(function (option, index) {
@@ -175,6 +171,7 @@ export class Select extends React.Component {
   }
 }
 
+// Creates a checkbox input, used for spectate only on join game
 export class Checkbox extends React.Component {
   render() {
 
@@ -189,7 +186,7 @@ export class Checkbox extends React.Component {
 
 
 
-
+// Titles the Menu Box
 export class MenuTitle extends React.Component {
   render() {
     return (
@@ -201,7 +198,7 @@ export class MenuTitle extends React.Component {
 }
 
 
-
+// Title in left of header, used for Username
 export class LeftTitle extends React.Component {
   render() {
     return (
@@ -210,6 +207,7 @@ export class LeftTitle extends React.Component {
   }
 }
 
+// title in Right of Header, used for Pin
 export class RightTitle extends React.Component {
   render() {
     return (
@@ -219,7 +217,8 @@ export class RightTitle extends React.Component {
 }
 
 
-
+// Generic List Holder
+// TODO: Check if used anywhere
 export class ListHolder extends React.Component {
   constructor(props) {
     super(props);
@@ -241,13 +240,15 @@ export class ListHolder extends React.Component {
   }
 }
 
-
+// Timer used for Question and Vote
 export class Timer extends React.Component {
-    constructor(props) {
+  // Initializes the timer with a total time prop
+  constructor(props) {
     super(props);
     this.state = {TimeLeft: props.TotalTime};
   }
 
+  // Starts the timer
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
@@ -255,6 +256,7 @@ export class Timer extends React.Component {
     );
   }
 
+  // clears interval
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
@@ -292,6 +294,7 @@ export class Timer extends React.Component {
   }
 }
 
+// Used for Blog posts and About/ How To Play
 export class ArticleSection extends React.Component {
   constructor(props) {
     super(props);
@@ -313,6 +316,9 @@ export class ArticleSection extends React.Component {
   }
 }
 
+// Head element on all pages
+// dangerouslySetInnerHTML used for Google Analytics
+// Might want to move Google Adsense Tag to seperate Component so it can be used more selectively (Not during the game)
 export class PhrenemiesHeader extends React.Component {
   render() {
     return (

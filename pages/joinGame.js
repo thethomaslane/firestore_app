@@ -5,6 +5,8 @@ import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 import { useRouter } from 'next/router'
 
+// create router that can be used to move the game
+// useRouter() only works in a function component
 export default function JoinGame(props) {
   let router = useRouter();
   return (
@@ -42,32 +44,48 @@ class GameJoinerButton extends React.Component {
     super(props);
     this.setUsernameAndPin = this.setUsernameAndPin.bind(this);
   }
+
+    /* When the user clicks Join, the username, pin, and spectate value are all sent to the server
+    Spectate means a user only watches the game and does not answer questions or vote
+  */
+
   setUsernameAndPin() {
-    let validForm = true;
     let username = document.getElementById("Username").value;
     let pin = document.getElementById("PIN").value.toUpperCase().split(" ").join("");
     let spectate = document.getElementById("Spectate").checked;
-    console.log(spectate);
+    // Pin must only be letters. NOTE: 8 character length is limit on input
+
+    //spectator path
     if (pin.match(/^[a-zA-Z]+$/) && spectate) {
+
+      // set cookies so refreshing works
       setCookie("username", "spectator");
       setCookie("pin", pin);
       setCookie("start", "false");
       setCookie("spectator", "true")
+
+      // Send info to server and move into play page
       this.props.connection.send(JSON.stringify({Code: "Spectate Game", Pin: pin}));
       this.props.router.push("/play");
     }
+
+    // player path. Username and Pin must be letters
     else if (username.match(/^[a-zA-Z]+$/) && pin.match(/^[a-zA-Z]+$/) && username.length >= 1) {
+
+      // set cookies so refreshing works
       setCookie("username", username);
       setCookie("pin", pin);
       setCookie("start", "false");
       setCookie("spectator", "false")
+
+      // send info to server and move into play
       this.props.connection.send(JSON.stringify({Code: "Open"}))
       this.props.connection.send(JSON.stringify({Code: "Join Game", Player: {Pin: pin, Name: username, Host: false}}));
       this.props.router.push("/play");
     } else {alert("Username and Pin can only contain letters. \n Username must be between 1 and 12 characters long. \n Pin must be 8 characters long.")}
   }
+
   render() {
-  
     return (
       <div className={multiClass([styles.centered])} >
         <comp.PrimaryButton id="GameJoinerButton" text="Join" clickFunction={this.setUsernameAndPin} disabled={false}/>

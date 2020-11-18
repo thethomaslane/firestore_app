@@ -14,14 +14,14 @@ export default function newQuestion(props) {
       </comp.Header>
       <br />
       <comp.SubTitle text="The game where you find which of your friends are phonies!" />
-      <GameJoinerForm connection={props.connection} />
+      <NewQuestionSubmitterForm connection={props.connection} />
     </div>
   )
 }
 
   
-
-class GameJoinerForm extends React.Component {
+// Inputs for a new question suggestion
+class NewQuestionSubmitterForm extends React.Component {
   render() {
     return (
       <comp.MenuBox color="#344DA8">
@@ -36,7 +36,7 @@ class GameJoinerForm extends React.Component {
   }
 }
 
-
+// Sends the new questions to the server to be stored
 class QuestionSubmitterButton extends React.Component {
   constructor(props) {
     super(props);
