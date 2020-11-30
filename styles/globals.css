@@ -1,11 +1,11 @@
 @font-face {
   font-family: Bubblegum Sans;
-  src: url('/public/BubblegumSans-Regular.ttf');
+  src: url('/BubblegumSans-Regular.ttf');
 }
 
 @font-face {
   font-family: Architects Daughter;
-  src: url(/public/ArchitectsDaughter-Regular.ttf);
+  src: url(/ArchitectsDaughter-Regular.ttf);
 } 
 select,
 select:focus,
