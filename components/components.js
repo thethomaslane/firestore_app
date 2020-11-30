@@ -2,13 +2,14 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import multiClass from '../utilities/multiClass.js'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 
 // Displays the Paper backgrond, Can have an overlay that improves contrast for text directly on background
 export class Background extends React.Component {
   render() {
     return (
-    <div className={multiClass([styles.background])}> 
+    <div className={multiClass([styles.background])}><Image src="/paper_background.jpeg" layout="fill"/>
       <div className={multiClass(["overlay"])}>{this.props.children}
       <style jsx>{`
         .overlay {
