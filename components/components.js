@@ -2,7 +2,6 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import multiClass from '../utilities/multiClass.js'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 
 
 // Displays the Paper backgrond, Can have an overlay that improves contrast for text directly on background
@@ -297,9 +296,18 @@ export class Timer extends React.Component {
 
 // Used for Blog posts and About/ How To Play
 export class ArticleSection extends React.Component {
+  constructor(props) {  
+    super(props); 
+    this.state = {loaded: false}  
+  } 
+  componentDidMount() { 
+    setTimeout(() => {this.setState({loaded: true})},100) 
+  }
   render() {
+    let loadedClass = "prescale"; 
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.article])}>
+      <div className={multiClass([styles.article, loadedClass])}>
         <h3 className={multiClass([styles.blackText])}>{this.props.title}</h3>
         <p className={multiClass([styles.articleText])}>{this.props.text}</p>
       </div>
@@ -316,18 +324,6 @@ export class PhrenemiesHeader extends React.Component {
     return (
       <Head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-G30W780XSK"></script>
-        <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                      window.dataLayer = window.dataLayer || [];
-                      function gtag(){dataLayer.push(arguments);}
-                      gtag('js', new Date());
-
-                      gtag('config', 'G-G30W780XSK');
-                  `,
-            }}
-          ></script>
-        <script data-ad-client="ca-pub-5915812167551366" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
