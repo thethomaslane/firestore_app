@@ -9,7 +9,7 @@ import Image from 'next/image'
 export class Background extends React.Component {
   render() {
     return (
-    <div className={multiClass([styles.background])}><Image src="/paper_background.jpeg" layout="fill"/>
+    <div className={multiClass([styles.background])}>
       <div className={multiClass(["overlay"])}>{this.props.children}
       <style jsx>{`
         .overlay {

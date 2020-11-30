@@ -1,4 +1,5 @@
 .background {
+  background-image: url("/paper_background.jpeg");
   min-height: 120vh;
   min-width: 120vw;
   position: fixed;
