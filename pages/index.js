@@ -39,15 +39,9 @@ class InfoHolder extends React.Component {
   // initialize and don't show either
   constructor(props) {
     super(props);
-    this.state = {displayAbout: true, displayHow: true};
+    this.state = {displayAbout: false, displayHow: false};
     this.handleChange = this.handleChange.bind(this);
   }
-
-
-  componentDidMount() {
-    setTimeout(() => {this.setState({displayAbout : false, displayHow: false})},1);
-  }
-
 
   // this function gets passed to the About comp and the How To Play Comp
   // Only one can be displayed at a time, and it should be the last one clicked.
@@ -78,7 +72,7 @@ class InfoBox extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {this.setState({loaded: true})},300)
+    setTimeout(() => {this.setState({loaded: true})},200)
   }
 
   handleClick() {

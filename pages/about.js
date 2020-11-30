@@ -29,9 +29,18 @@ export default function Home() {
 
 
 class BlogButton extends React.Component {
+  constructor(props) {  
+    super(props); 
+    this.state = {loaded: false}  
+  } 
+  componentDidMount() { 
+    setTimeout(() => {this.setState({loaded: true})},100) 
+  }
   render() {
+    let loadedClass = "prescale"; 
+    if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div className={multiClass([styles.article,  styles.centered])}>
+      <div className={multiClass([styles.article, loadedClass, styles.centered])}>
           <div className={multiClass([styles.inlineBlog])}>
           <Link href="/blog"><a>
             <p className={multiClass([styles.blogButton])}>Blog ▸</p>
