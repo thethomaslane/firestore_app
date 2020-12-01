@@ -95,9 +95,11 @@ class VoteListHolder extends React.Component {
     let disabled = this.props.disabled;
     let questionNumber = this.props.questionNumber;
     const users = this.props.userList.map(function (user, index) {
-    if (user.Name == currentPlayer) {return null}
+    if (user.Name == currentPlayer) {
+      return <AnswerBox delay={index} self={true} disabled={true} selected={false} username={"Your Answer"} key={index} color={"#808080"} answer={user.LastQuestionAnswered == questionNumber && user.Answer}/>
+    }
     else {
-    return <AnswerBox delay={index} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
+    return <AnswerBox delay={index} self={false} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
   }
 }
   );
@@ -133,7 +135,7 @@ class AnswerBox extends React.Component {
     let loadedClass = "prescale";
     if (this.state.loaded) {loadedClass = "scalein"}
     return (
-      <div onClick={this.handleClick} id={this.props.username} className={multiClass([styles.answerBox, loadedClass, this.props.disabled && "disabled", "gridItem", this.props.selected==this.props.username && "border"])}>
+      <div onClick={this.handleClick} id={this.props.username} className={multiClass([styles.answerBox, loadedClass, this.props.disabled && "disabled", this.props.self && "self", "gridItem", this.props.selected==this.props.username && "border"])}>
       <style jsx>{`
         .username {
           font-family: Bubblegum Sans;
@@ -151,6 +153,15 @@ class AnswerBox extends React.Component {
             border-radius: 10px;
             box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
             transform: translate(-4px, -4px);
+            transition-duration: 0.2s;
+        }
+        .self {
+            background-color: rgba(128,128,128,0.25);
+            border: 3px solid #808080;
+            box-sizing: border-box;
+            border-radius: 10px;
+            
+            transform: translate(4px, 4px);
             transition-duration: 0.2s;
         }
 
