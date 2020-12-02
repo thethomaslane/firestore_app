@@ -324,6 +324,16 @@ export class PhrenemiesHeader extends React.Component {
     return (
       <Head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-G30W780XSK"></script>
+        <script 
+            dangerouslySetInnerHTML={{  
+              __html: ` 
+                      window.dataLayer = window.dataLayer || [];  
+                      function gtag(){dataLayer.push(arguments);} 
+                      gtag('js', new Date()); 
+                      gtag('config', 'G-G30W780XSK'); 
+                  `,  
+            }}  
+          ></script>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
