@@ -76,7 +76,8 @@ class QuestionForm extends React.Component {
      return (
       <comp.MenuBox color="#344DA8">
         <comp.MenuTitle text={this.props.role}/>
-        {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>Try to blend in with the enemy!</p>}
+        {this.props.role == "Friend" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>You have the same question as your friends, answer truthfully!</p>}
+        {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>You have a different question from your friends, try to blend in!</p>}
         <QuestionText question={this.props.question}/>
         <comp.Input text="Answer" maxLength="40" disabled={this.props.disabled}/>
         <div className={multiClass([styles.centered])}>

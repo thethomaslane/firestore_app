@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 export default function Vote(props) {
   
   // Changes the Subtitle based on the players role (Phony or Friend)
-  let text = "Vote out the Phony!";
+  let text = "Select who you think is the Phony";
   let disabled = false;
   let selected = "";
   if (props.CurrentPlayer.Name == props.Game.Phony) {
@@ -160,8 +160,6 @@ class AnswerBox extends React.Component {
             border: 3px solid #808080;
             box-sizing: border-box;
             border-radius: 10px;
-            
-            transform: translate(4px, 4px);
             transition-duration: 0.2s;
         }
 
