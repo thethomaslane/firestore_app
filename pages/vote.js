@@ -161,6 +161,7 @@ class AnswerBox extends React.Component {
             box-sizing: border-box;
             border-radius: 10px;
             transition-duration: 0.2s;
+            margin: 1px;
         }
 
       `}</style>
