@@ -47,18 +47,23 @@ class MyApp extends App {
   }
 
 	render() {
+      let title;
       // Change component in Game Loop without loosing state
     	let { Component, pageProps } = this.props;
         if (this.state.Game.GameState != "setup") {
             // Component is selected from ComponentMap based on GameState
             Component = ComponentMap[GameState.GameState];
+            title = "- " + GameState.GameState;
+        }
+        if (GameState.GameState == "setup") {
+          title = ""
         }
 
       // Adds props that can be accessed by all components
       // connection is the websocket connection that is used to communicate with the server
     	return (
         <React.Fragment>
-          <components.PhrenemiesHeader />
+          <components.PhrenemiesHeader title={title}/>
       		<Component {...pageProps} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection} ErrorMessage={this.state.ErrorMessage}></Component>
     		</React.Fragment>
         );
