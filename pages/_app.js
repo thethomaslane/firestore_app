@@ -13,7 +13,7 @@ import vote from "./vote.js"
 import winner from "./winner.js"
 import phony from "./phony.js"
 import starting from "./starting.js"
-
+import role from "./role.js"
 
 
 class MyApp extends App {
@@ -47,18 +47,23 @@ class MyApp extends App {
   }
 
 	render() {
+      let title;
       // Change component in Game Loop without loosing state
     	let { Component, pageProps } = this.props;
         if (this.state.Game.GameState != "setup") {
             // Component is selected from ComponentMap based on GameState
             Component = ComponentMap[GameState.GameState];
+            title = "- " + GameState.GameState;
+        }
+        if (GameState.GameState == "setup") {
+          title = ""
         }
 
       // Adds props that can be accessed by all components
       // connection is the websocket connection that is used to communicate with the server
     	return (
         <React.Fragment>
-          <components.PhrenemiesHeader />
+          <components.PhrenemiesHeader title={title}/>
       		<Component {...pageProps} CurrentPlayer={this.state.CurrentPlayer} Game={this.state.Game} Players={this.state.Players} connection={connection} ErrorMessage={this.state.ErrorMessage}></Component>
     		</React.Fragment>
         );
@@ -73,7 +78,7 @@ export default MyApp;
 let comp;
 
 // Used to pick component based on state
-const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
+const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "role": role, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
 
 // Sets up socket connection using environment variable
 import { w3cwebsocket as W3CWebSocket } from "websocket";

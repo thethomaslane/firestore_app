@@ -321,6 +321,7 @@ export class ArticleSection extends React.Component {
 // Might want to move Google Adsense Tag to seperate Component so it can be used more selectively (Not during the game)
 export class PhrenemiesHeader extends React.Component {
   render() {
+
     return (
       <Head>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-G30W780XSK"></script>
@@ -337,7 +338,7 @@ export class PhrenemiesHeader extends React.Component {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Phrenemies!</title>
+        <title>{"Phrenemies!" + this.props.title}</title>
         <meta property="og:title" content="Phrenemies!" key="title" />
         <meta name="application-name" content="Phrenemies!" />
         <meta name="description" content="The game where you find which of your friends are phonies!" />

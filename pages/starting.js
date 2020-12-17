@@ -14,6 +14,8 @@ export default function Starting(props) {
     <comp.SubTitle text="Starting in:"/>
     <StartingBox />
     <CancelButton connection={props.connection} pin={props.Game.Pin} />
+    <br />
+    <comp.SubTitle text="Don't let others see your screen during the game" />
      </div>
   )
 }

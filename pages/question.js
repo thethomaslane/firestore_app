@@ -15,7 +15,10 @@ export default function Question(props) {
   if (props.CurrentPlayer.Name == props.Game.Phony) {
     questionText = props.Game.Questions[props.Game.QuestionsAsked].AltText;
     role = "Phony!"
+  } else if (props.CurrentPlayer.Spectator) {
+    role = "Spectator";
   } else {
+
     questionText = props.Game.Questions[props.Game.QuestionsAsked].Text;
     role = "Friend"
 
@@ -32,7 +35,8 @@ export default function Question(props) {
       document.getElementById("Answer").value = currentPlayer.Answer;
     }
 
-    // If Current Player is a spectator, don't show the question form
+    // Check the user role and change subtitle based on that
+    // Don't show question form if user is spectator
   return (
     <div>
 
@@ -41,8 +45,10 @@ export default function Question(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-    <comp.SubTitle text="Question" subtext={(props.CurrentPlayer.Spectator && "Spectators do not see the question") || null}/>
-    {!props.CurrentPlayer.Spectator  && <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} />}
+      {role == "Friend" && <comp.SubTitle text={role} subtext="You have the same question as your friends, answer truthfully." />}
+      {role == "Phony!" && <comp.SubTitle text={role} subtext="You have a different question from your friends, try to blend in!" />}
+      {role == "Spectator" && <comp.SubTitle text={role} subtext="Spectators do not see the question" />}
+      {!props.CurrentPlayer.Spectator  && <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} />}
     <comp.Timer TotalTime={props.Game.QuestionTime} />
     </div>
   )
@@ -75,9 +81,7 @@ class QuestionForm extends React.Component {
 
      return (
       <comp.MenuBox color="#344DA8">
-        <comp.MenuTitle text={this.props.role}/>
-        {this.props.role == "Friend" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>You have the same question as your friends, answer truthfully!</p>}
-        {this.props.role == "Phony!" && <p className={multiClass([styles.centered, styles.noMarginTopBottom])}>You have a different question from your friends, try to blend in!</p>}
+        <comp.MenuTitle text="Question"/>
         <QuestionText question={this.props.question}/>
         <comp.Input text="Answer" maxLength="40" disabled={this.props.disabled}/>
         <div className={multiClass([styles.centered])}>
