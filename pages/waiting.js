@@ -17,7 +17,7 @@ export default function WaitForPlayers(props) {
     <comp.ListHolder>
       <UsernameBoxList players={props.Players} />
     </comp.ListHolder>
-    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions && props.Players.length >= process.env.NEXT_PUBLIC_PLAYERS} 
+    <GameStarterButton connection={props.connection} display={props.CurrentPlayer.Host && props.Game.Questions } numPlayers={props.Players.length}
       pin={props.Game.Pin} QuestionTime={props.Game.QuestionTime} VoteTime={props.Game.VoteTime}/>
     </div>
   )
@@ -90,12 +90,21 @@ class GameStarterButton extends React.Component {
   }
   render() {
     if (this.props.display) {
+      if (this.props.numPlayers >= process.env.NEXT_PUBLIC_PLAYERS + 2 ){
       return (
         <div className={multiClass([styles.centered, styles.paddedTopBottom])} >
           <comp.PrimaryButton id="GameStarterButton" text="Start Game" clickFunction={this.startGame}/>
         </div>
       )
-    } else {return (null)}
+    }  else {
+      return (
+        <div className={multiClass([styles.centered, styles.paddedTopBottom])} >
+          <comp.SubTitle subtext="The game is not meant to be played with less than 3 players" />
+          <comp.PrimaryButton id="GameStarterButton" text="Test Game" clickFunction={this.startGame}/>
+        </div>
+      )
+    }}
+    else {return (null)}
 
   }
 }

@@ -13,7 +13,7 @@ import vote from "./vote.js"
 import winner from "./winner.js"
 import phony from "./phony.js"
 import starting from "./starting.js"
-
+import role from "./role.js"
 
 
 class MyApp extends App {
@@ -73,7 +73,7 @@ export default MyApp;
 let comp;
 
 // Used to pick component based on state
-const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
+const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGame": createGame, "joinGame": joinGame, "role": role, "question": question, "waiting": waiting, "vote": vote, "winner": winner, "phony": phony};
 
 // Sets up socket connection using environment variable
 import { w3cwebsocket as W3CWebSocket } from "websocket";
