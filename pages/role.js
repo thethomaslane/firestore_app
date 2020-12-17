@@ -50,7 +50,7 @@ class RoleDisplay extends React.Component {
           font-size: 72px;
           
           color: black;
-          -webkit-text-fill-color: ${this.props.color}; /* Will override color (regardless of order) */
+          -webkit-text-fill-color: white; /* Will override color (regardless of order) */
           -webkit-text-stroke-width: 1.5px;
           -webkit-text-stroke-color: black;
 
