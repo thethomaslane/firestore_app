@@ -9,10 +9,10 @@ export default function Role(props) {
 	let text;
 	if (props.CurrentPlayer.Name == props.Game.Phony) {
 		role = "Phony!";
-		text = "You are the phony! Try to blend in with your friends.";
+		text = "You have a different question from your friends, try to blend in!";
 	} else {
 		role = "Friend";
-		text = "You are not the phony, answer the question honestly.";
+		text = "You have the same question as your friends, answer truthfully.";
 	}
   return (
     <div>

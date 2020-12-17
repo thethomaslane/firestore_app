@@ -45,7 +45,7 @@ export default function Question(props) {
       <comp.LeftTitle text={props.CurrentPlayer.Name} />
       <comp.RightTitle text={"PIN: "+ props.Game.Pin.substring(0,4) + " " + props.Game.Pin.substring(4,8)} />
     </comp.Header>
-      {role == "Friend" && <comp.SubTitle text={role} subtext="You have the same question as your friends, answer truthfully!" />}
+      {role == "Friend" && <comp.SubTitle text={role} subtext="You have the same question as your friends, answer truthfully." />}
       {role == "Phony!" && <comp.SubTitle text={role} subtext="You have a different question from your friends, try to blend in!" />}
       {role == "Spectator" && <comp.SubTitle text={role} subtext="Spectators do not see the question" />}
       {!props.CurrentPlayer.Spectator  && <QuestionForm QuestionNumber={props.Game.QuestionsAsked} role={role} connection={props.connection} question={questionText} pin={props.Game.Pin} disabled={disabled} CurrentPlayer={currentPlayer} host={props.CurrentPlayer.Host} />}
