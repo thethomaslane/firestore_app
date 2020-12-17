@@ -90,7 +90,7 @@ class GameStarterButton extends React.Component {
   }
   render() {
     if (this.props.display) {
-      if (this.props.numPlayers >= process.env.NEXT_PUBLIC_PLAYERS + 2 ){
+      if (this.props.numPlayers >= process.env.NEXT_PUBLIC_PLAYERS ){
       return (
         <div className={multiClass([styles.centered, styles.paddedTopBottom])} >
           <comp.PrimaryButton id="GameStarterButton" text="Start Game" clickFunction={this.startGame}/>
