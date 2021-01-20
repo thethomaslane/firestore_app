@@ -4,15 +4,15 @@ import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 
 
-export default function Role(props) {
+export default function PreVote(props) {
 	let role;
 	let text;
 	if (props.CurrentPlayer.Name == props.Game.Phony) {
 		role = "Phony!";
-		text = "Try not to get caught in a lie! It doesn't matter who you vote for.";
+		text = "You don't need to vote, but try not to get caught in a lie! ";
 	} else {
 		role = "Friend";
-		text = "Someone is a phony and answered a different question. Select who you think it is.";
+		text = "Someone else a phony and answered a different question. Select who you think it is.";
 	}
   return (
     <div>
