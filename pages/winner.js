@@ -3,16 +3,18 @@ import multiClass from '../utilities/multiClass.js'
 import * as comp from "../components/components.js"
 import Link from 'next/link'
 import { useEffect } from 'react';
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+import { useRouter } from 'next/router'
 
 
 export default function Home(props) {
-
+let router = useRouter();
 // Deletes the game when this page is reached
 useEffect(() => {
   if (props.CurrentPlayer.Host) {
     setTimeout(() => {props.connection.send(JSON.stringify({Code: "Delete Game", Pin: props.Game.Pin}))}, 2000);
   }
-  setTimeout(() => {props.connection.send(JSON.stringify({Code: "Close Connection"}))}, 2000);
+  setTimeout(() => {props.connection.send(JSON.stringify({Code: "Close Connetion"}))}, 2000);
   });
 
   // sort players by score (Highest Score First)
@@ -29,7 +31,7 @@ useEffect(() => {
     </comp.Header>
     <comp.SubTitle text="Winner"/>
     <WinnerList players={players} />
-    <HomeButton />
+    <ReplayButton router={router} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} game={props.Game} />
     </div>
   )
 }
@@ -90,12 +92,58 @@ class WinnerBox extends React.Component {
   }
 }
 
-class HomeButton extends React.Component {
+class ReplayButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.replay = this.replay.bind(this);
+    this.state = {display: false}
+  }
+
+  componentDidMount() {
+    setTimeout(() => {this.setState({display:true})}, 2000)
+  }
+
+  replay() {
+    console.log("replay")
+    let newpin = newPinGenerator(this.props.pin);
+    setCookie("pin", newpin);
+    this.props.connection.send(JSON.stringify({Code: "Replay Game", Pin: newpin, Player: this.props.playerName, Game: this.props.game}))
+    this.props.router.push("/play");
+  }
+
   render() {
+    if (this.state.display) {
     return (
       <div className={multiClass([styles.centered, styles.paddedTopBottom, styles.bottom])} >
-        <a href="/"><comp.PrimaryButton id="HomeButton" text="Play Again" /></a>
+        <comp.PrimaryButton id="HomeButton" text="Play Again" clickFunction={this.replay} />
       </div>
     )
+  } else {
+    return null
   }
+  }
+}
+
+function newPinGenerator(Pin) {
+  let firstCharacter = parseInt(Pin[0]);
+  let newpin;
+  let digits = 1;
+
+  if (firstCharacter) {
+    firstCharacter = firstCharacter + 1;
+    if (firstCharacter >= 10) {digits = 2}
+    newpin = firstCharacter + Pin.slice(digits);
+  } else {
+    newpin = 2 + Pin.slice(1)
+  }
+  return newpin
+}
+
+// I got this from the W3Schools site. Can only set one cookie at a time
+function setCookie(name, value) {
+  var d = new Date();
+  d.setTime(d.getTime() + (20 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  let newCookie = name+ "=" + value + ";" + expires + ";";
+  document.cookie = newCookie;
 }

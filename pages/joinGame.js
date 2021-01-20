@@ -70,7 +70,7 @@ class GameJoinerButton extends React.Component {
     }
 
     // player path. Username and Pin must be letters
-    else if (username.match(/^[a-zA-Z]+$/) && pin.match(/^[a-zA-Z]+$/) && username.length >= 1) {
+    else if (username.match(/^[a-zA-Z0-9]+$/) && pin.match(/^[a-zA-Z0-9]+$/) && username.length >= 1) {
 
       // set cookies so refreshing works
       setCookie("username", username);
