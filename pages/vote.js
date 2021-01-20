@@ -126,7 +126,7 @@ class AnswerBox extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {this.setState({loaded: true})},(50 + (75 * this.props.delay)))
+    setTimeout(() => {this.setState({loaded: true})},(50 + (250 * this.props.delay)))
   }
   handleClick(e) {
     this.props.clickHandler(this.props.username);
