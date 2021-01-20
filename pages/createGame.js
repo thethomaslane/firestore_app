@@ -37,8 +37,8 @@ class GameCreatorButton extends React.Component {
   */
   setUsernameAndPin() {
     let username = document.getElementById("Username").value;
-    let questionTime = document.getElementById("QuestionTime").value;
-    let voteTime = document.getElementById("VoteTime").value;
+    let questionTime = parseInt(document.getElementById("QuestionTime").value);
+    let voteTime = parseInt(document.getElementById("VoteTime").value) + 10;
     let numberOfQuestions = document.getElementById("NumberOfQuestions").value;
 
     // usernames can only contain letters and must include at least one character 

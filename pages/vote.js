@@ -94,12 +94,13 @@ class VoteListHolder extends React.Component {
     let onSelect = this.onSelect;
     let disabled = this.props.disabled;
     let questionNumber = this.props.questionNumber;
+    let numPlayers = this.props.userList.length;
     const users = this.props.userList.map(function (user, index) {
     if (user.Name == currentPlayer) {
-      return <AnswerBox delay={index} self={true} disabled={true} selected={false} username={"Your Answer"} key={index} color={"#808080"} answer={user.LastQuestionAnswered == questionNumber && user.Answer}/>
+      return <AnswerBox numPlayers={numPlayers} delay={index} self={true} disabled={true} selected={false} username={"Your Answer"} key={index} color={"#808080"} answer={user.LastQuestionAnswered == questionNumber && user.Answer}/>
     }
     else {
-    return <AnswerBox delay={index} self={false} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
+    return <AnswerBox numPlayers={numPlayers} delay={index} self={false} disabled={disabled} selected={selected} username={user.Name} key={index} color={user.Color} answer={user.LastQuestionAnswered == questionNumber && user.Answer} clickHandler={onSelect}/>
   }
 }
   );
@@ -126,7 +127,7 @@ class AnswerBox extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {this.setState({loaded: true})},(50 + (75 * this.props.delay)))
+    setTimeout(() => {this.setState({loaded: true})},(500 + (Math.min(1500,(10000 / this.props.numPlayers)) * this.props.delay)));
   }
   handleClick(e) {
     this.props.clickHandler(this.props.username);
