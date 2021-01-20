@@ -316,6 +316,25 @@ export class ArticleSection extends React.Component {
   }
 }
 
+export class ScaleIn extends React.Component {
+  constructor(props) {  
+    super(props); 
+    this.state = {loaded: false}  
+  } 
+  componentDidMount() { 
+    setTimeout(() => {this.setState({loaded: true})},this.props.delay) 
+  }
+  render() {
+    let loadedClass = "prescale"; 
+    if (this.state.loaded) {loadedClass = "scalein"}
+    return (
+      <div className={multiClass([loadedClass])}>
+      {this.props.children}
+      </div>
+    )
+  }
+}
+
 // Head element on all pages
 // dangerouslySetInnerHTML used for Google Analytics
 // Might want to move Google Adsense Tag to seperate Component so it can be used more selectively (Not during the game)
