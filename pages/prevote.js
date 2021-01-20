@@ -9,7 +9,7 @@ export default function PreVote(props) {
 	let text;
 	if (props.CurrentPlayer.Name == props.Game.Phony) {
 		role = "Phony!";
-		text = "You don't need to vote, but try not to get caught in a lie! ";
+		text = "You're the Phony! Try not to get caught in a lie.";
 	} else {
 		role = "Friend";
 		text = "Someone else a phony and answered a different question. Select who you think it is.";

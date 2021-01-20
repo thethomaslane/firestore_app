@@ -4,6 +4,7 @@ import * as comp from "../components/components.js"
 import Link from 'next/link'
 
 export default function WaitForPlayers(props) {
+  console.log(props.CurrentPlayer.Name)
   return (
     <div>
    <comp.Background />

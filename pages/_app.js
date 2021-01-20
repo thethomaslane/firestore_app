@@ -84,7 +84,7 @@ const ComponentMap = {"scoreboard": scoreboard, "starting": starting, "createGam
 // Sets up socket connection using environment variable
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 const socketServer = process.env.NEXT_PUBLIC_SOCKET_SERVER;
-const connection = new W3CWebSocket(socketServer);
+let connection = new W3CWebSocket(socketServer);
 
 // Initialize state to prevent errors
 let GameState = {Pin: "", GameState: "setup", ErrorMessage: null, newQuestion: {Questions: ["waiting", "waiting", "waiting", "waiting"]} };
@@ -119,6 +119,7 @@ connection.onmessage =  (e) => {
   if (data.Code == "Display Message") {alert(data.Message);}
   if (data.Code == "Join Failed") {GameState.ErrorMessage = data.Message; comp.dispatchEvent(new Event('recieveGame'));}
   if (data.Code == "New Question") {if (data.newQuestion) {GameState.newQuestion = data.newQuestion; comp.dispatchEvent(new Event('recieveGame'));}}
+  if (data.Code == "Reset Socket") {console.log("new connection");connection = new W3CWebSocket(socketServer);}
 }
 
 
