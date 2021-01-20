@@ -13,7 +13,7 @@ export default function Home() {
       <br />
       <comp.SubTitle text="Which of your friends are Phonies?!" />
       <MainMenuForm />
-      <p className={multiClass([styles.centered, styles.subTitleComp])}> Follow <a target="_blank" rel="noopener noreferrer" style={{color: "#344DA8"}} href="https://twitter.com/Phrenemies1">Phrenemies!</a> on Twitter for updates</p>
+      <comp.ScaleIn delay={100}><p className={multiClass([styles.centered, styles.subTitleComp])}> Follow <a target="_blank" rel="noopener noreferrer" style={{color: "#344DA8"}} href="https://twitter.com/Phrenemies1">Phrenemies!</a> on Twitter for updates</p></comp.ScaleIn>
       <InfoHolder />
     </div>
   )
