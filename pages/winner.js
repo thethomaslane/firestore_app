@@ -109,7 +109,6 @@ class ReplayButton extends React.Component {
   }
 
   replay() {
-    console.log("replay")
     let newpin = newPinGenerator(this.props.pin);
     setCookie("pin", newpin);
     this.props.connection.send(JSON.stringify({Code: "Replay Game", Pin: newpin, Player: this.props.playerName, Game: this.props.game, UsedQuestions: this.props.usedQuestions}))
