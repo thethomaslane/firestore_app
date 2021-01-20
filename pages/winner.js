@@ -16,7 +16,12 @@ useEffect(() => {
   }
   setTimeout(() => {props.connection.send(JSON.stringify({Code: "Close Connetion"}))}, 2000);
   });
-
+  
+  // get list of question IDs so id they play again they don't repeat
+  let questionIDs = [];
+  for (var i = props.Game.Questions.length - 1; i >= 0; i--) {
+    questionIDs.push(props.Game.Questions[i].ID)
+  }
   // sort players by score (Highest Score First)
   let players = props.Players.sort(function(a, b) {
     return parseFloat(b.Score) - parseFloat(a.Score);
@@ -31,7 +36,7 @@ useEffect(() => {
     </comp.Header>
     <comp.SubTitle text="Winner"/>
     <WinnerList players={players} />
-    <ReplayButton router={router} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} game={props.Game} />
+    <ReplayButton usedQuestions={questionIDs} router={router} connection={props.connection} pin={props.Game.Pin} playerName={props.CurrentPlayer.Name} game={props.Game} />
     </div>
   )
 }
@@ -104,10 +109,9 @@ class ReplayButton extends React.Component {
   }
 
   replay() {
-    console.log("replay")
     let newpin = newPinGenerator(this.props.pin);
     setCookie("pin", newpin);
-    this.props.connection.send(JSON.stringify({Code: "Replay Game", Pin: newpin, Player: this.props.playerName, Game: this.props.game}))
+    this.props.connection.send(JSON.stringify({Code: "Replay Game", Pin: newpin, Player: this.props.playerName, Game: this.props.game, UsedQuestions: this.props.usedQuestions}))
     this.props.router.push("/play");
   }
 
