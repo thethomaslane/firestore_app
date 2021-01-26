@@ -94,7 +94,7 @@ let CurrentPlayer = {Host: false};
 
 // Open Connection
 connection.onopen = () => {
-
+  console.log("open")
   connection.send(JSON.stringify({Code: "Open"}));
 }
 
