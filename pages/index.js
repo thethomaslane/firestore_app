@@ -25,9 +25,7 @@ class MainMenuForm extends React.Component {
   render() {
     return (
       <comp.MenuBox color="#344DA8">
-        <comp.MenuTitle text="Main Menu" />
-        <CreateGameButton/>
-        <JoinGameButton />
+        <comp.MenuTitle text="Sadly, Phrenemies is no longer operational due to operating expenses." />
       </comp.MenuBox>
     )
   }
